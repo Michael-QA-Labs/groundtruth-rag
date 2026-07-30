@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# macOS
+.DS_Store
+
+# Editor
+.idea/
+
+# Secrets — never commit tokens or keys.
+.env
+.env.*
+*.pem
+
+# Derived corpus file. Rebuild with `python src/build_combined.py`.
+# 1.8 MB that duplicates every corpus/doc-NN.md byte-for-byte, so committing it
+# would double the repo size and make every corpus diff show up twice.
+corpus/combined.md
+
+# NOT ignored, deliberately:
+#   corpus/doc-*.md   the frozen corpus IS the dataset — an interviewer needs it
+#                     to reproduce any number, and the sha256 in corpus/INDEX.md
+#                     is meaningless without the bytes it fingerprints.

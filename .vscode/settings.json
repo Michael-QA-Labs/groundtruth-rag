@@ -1,0 +1,46 @@
+{
+  // Hide clutter from the file tree.
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/.DS_Store": true
+  },
+
+  // Keep full-text search fast and de-duplicated.
+  //
+  // corpus/combined.md is a DERIVED concatenation of all 30 doc-NN.md files, so
+  // without this every search hit in the corpus shows up twice — once in the
+  // real file, once in the copy. Excluded here on purpose: use `grep -n` in the
+  // terminal when you specifically want combined.md, and VS Code search when
+  // you want the source files.
+  "search.exclude": {
+    "**/__pycache__": true,
+    "corpus/combined.md": true
+  },
+
+  // Don't burn CPU watching files that never change by hand.
+  // The corpus is frozen (see corpus/INDEX.md) and 1.8 MB across 31 files.
+  "files.watcherExclude": {
+    "**/__pycache__/**": true,
+    "**/corpus/**": true
+  },
+
+  // The corpus is frozen — make it read-only in the editor so a stray keystroke
+  // can't invalidate the sha256 in corpus/INDEX.md.
+  "files.readonlyInclude": {
+    "corpus/doc-*.md": true,
+    "corpus/combined.md": true
+  },
+
+  // Trim the 1.8 MB combined file's editor overhead if you do open it.
+  "editor.largeFileOptimizations": true,
+
+  "[python]": {
+    "editor.rulers": [79],
+    "editor.tabSize": 4
+  },
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.rulers": [80]
+  }
+}
