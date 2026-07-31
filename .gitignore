@@ -27,3 +27,6 @@ corpus/combined.md
 #                     is meaningless without the bytes it fingerprints.
 
 .venv/
+
+# Derived: rebuild with src/embed.py. 2.6 MB binary, unreadable diffs.
+index/vectors.npz

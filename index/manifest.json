@@ -1,0 +1,68 @@
+{
+  "corpus_sha256": "a887366bab9778b59129493073c38a116d55ff8e6657b191be1f9d5678473737",
+  "vectors_sha256": "390740c394725942597fabcb26b971fb91f5985f6f73f87be251601c856364f4",
+  "git_sha": "ba64ded1bbaef77f4842593d3295181ad6bbe759",
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "embedding_dim": 384,
+  "normalized": true,
+  "query_prefix": "",
+  "passage_prefix": "",
+  "token_limit": 254,
+  "n_chunks": 1662,
+  "chunks_per_doc": {
+    "doc-01": 18,
+    "doc-02": 13,
+    "doc-03": 20,
+    "doc-04": 18,
+    "doc-05": 38,
+    "doc-06": 38,
+    "doc-07": 168,
+    "doc-08": 46,
+    "doc-09": 66,
+    "doc-10": 70,
+    "doc-11": 10,
+    "doc-12": 79,
+    "doc-13": 64,
+    "doc-14": 228,
+    "doc-15": 107,
+    "doc-16": 96,
+    "doc-17": 65,
+    "doc-18": 29,
+    "doc-19": 28,
+    "doc-20": 31,
+    "doc-21": 34,
+    "doc-22": 23,
+    "doc-23": 9,
+    "doc-24": 8,
+    "doc-25": 177,
+    "doc-26": 49,
+    "doc-27": 25,
+    "doc-28": 58,
+    "doc-29": 20,
+    "doc-30": 27
+  },
+  "duplicate_groups": [
+    [
+      "doc-01:c002",
+      "doc-02:c002"
+    ],
+    [
+      "doc-01:c003",
+      "doc-02:c003"
+    ],
+    [
+      "doc-13:c022",
+      "doc-14:c002"
+    ],
+    [
+      "doc-13:c023",
+      "doc-14:c003"
+    ]
+  ],
+  "versions": {
+    "sentence-transformers": "5.6.1",
+    "torch": "2.13.0",
+    "transformers": "5.14.1",
+    "numpy": "2.5.1"
+  }
+}
