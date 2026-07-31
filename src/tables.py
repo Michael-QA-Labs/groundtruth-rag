@@ -143,9 +143,11 @@ def render_row(headers: list[str], cells: list[str]) -> str:
         value = cells[i]
         if not value:
             continue                    # empty cell carries nothing; skip it
-        # 105 rows in this corpus have more cells than their header declares.
-        # Dropping the surplus would silently lose content, so they get a
-        # positional label instead.
+        # Defensive: a row with more cells than its header. Measured at ZERO
+        # occurrences in this corpus — an earlier count of 105 came from a naive
+        # split("|") inventing cells at escaped and code-span pipes. Kept anyway,
+        # because the alternative is dropping the surplus, and silently losing a
+        # cell is exactly the failure this module exists to prevent.
         label = headers[i] if i < len(headers) else f"Column {i + 1}"
         lines.append(f"{label}: {value}" if label else value)
 
