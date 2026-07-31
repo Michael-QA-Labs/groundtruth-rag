@@ -25,3 +25,5 @@ corpus/combined.md
 #   corpus/doc-*.md   the frozen corpus IS the dataset — an interviewer needs it
 #                     to reproduce any number, and the sha256 in corpus/INDEX.md
 #                     is meaningless without the bytes it fingerprints.
+
+.venv/
