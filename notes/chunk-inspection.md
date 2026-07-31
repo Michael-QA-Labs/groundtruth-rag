@@ -1,6 +1,6 @@
 # Chunk inspection
 
-Stratified sample of 7 chunks from 1,662.
+Stratified sample of 7 chunks from 1,637.
 Read this BEFORE writing gold labels - after Day 4 the chunk IDs are frozen.
 
 For each: `text_raw` is what you label against, `text_embed` is what the
@@ -8,151 +8,126 @@ model actually sees.
 
 ---
 
-## `doc-25:c127` — block_type=code
-`agent-sdk/python` · code · 252 tokens · chars 151,910–152,714
+## `doc-25:c125` — block_type=code
+`agent-sdk/python` · code · 253 tokens · chars 150,119–150,975
 
 **text_raw**
 ```
-        "cache_read_input_tokens": int | None,
-        "server_tool_use": {"web_search_requests": int, "web_fetch_requests": int} | None,
-        "service_tier": str | None,
-        "cache_creation": {"ephemeral_1h_input_tokens": int, "ephemeral_5m_input_tokens": int} | None,
-        "inference_geo": str | None,
-        "speed": str | None,
-        "iterations": Any | None,
-    },
-    "toolStats": {  # Aggregate tool activity for the run
-        "readCount": int,
-        "searchCount": int,
-        "bashCount": int,
-        "editFileCount": int,
-        "linesAdded": int,
-        "linesRemoved": int,
-        "otherToolCount": int,
-        "frameCount": int | None,
-    } | None,
-    "prompt": str,  # The prompt the agent ran
-    "worktreePath": str | None,  # Present for worktree-isolated runs
+```python theme={null}
+{
+    "description": str,  # A short (3-5 word) description of the task
+    "prompt": str,  # The task for the agent to perform
+    "subagent_type": str | None,  # The type of specialized agent to use
+    "model": "sonnet" | "opus" | "haiku" | "fable" | None,  # Model override for this agent
+    "run_in_background": bool | None,  # Agents run in the background by default; set to False to run synchronously
+    "name": str | None,  # Name for the spawned agent
+    "team_name": str | None,  # Deprecated; ignored
+    "mode": "acceptEdits" | "auto" | "bypassPermissions" | "default" | "dontAsk" | "plan" | None,  # Deprecated; ignored. Subagents inherit the parent session's permission mode; agent-definition frontmatter may override it
+    "isolation": "worktree" | "remote" | None,  # Isolation mode for the agent's changes
+}
+```
 ```
 
 **text_embed**
 ```
-"cache_read_input_tokens": int | None,
-        "server_tool_use": {"web_search_requests": int, "web_fetch_requests": int} | None,
-        "service_tier": str | None,
-        "cache_creation": {"ephemeral_1h_input_tokens": int, "ephemeral_5m_input_tokens": int} | None,
-        "inference_geo": str | None,
-        "speed": str | None,
-        "iterations": Any | None,
-    },
-    "toolStats": {  # Aggregate tool activity for the run
-        "readCount": int,
-        "searchCount": int,
-        "bashCount": int,
-        "editFileCount": int,
-        "linesAdded": int,
-        "linesRemoved": int,
-        "otherToolCount": int,
-        "frameCount": int | None,
-    } | None,
-    "prompt": str,  # The prompt the agent ran
-    "worktreePath": str | None,  # Present for worktree-isolated runs
+```python theme={null}
+{
+    "description": str,  # A short (3-5 word) description of the task
+    "prompt": str,  # The task for the agent to perform
+    "subagent_type": str | None,  # The type of specialized agent to use
+    "model": "sonnet" | "opus" | "haiku" | "fable" | None,  # Model override for this agent
+    "run_in_background": bool | None,  # Agents run in the background by default; set to False to run synchronously
+    "name": str | None,  # Name for the spawned agent
+    "team_name": str | None,  # Deprecated; ignored
+    "mode": "acceptEdits" | "auto" | "bypassPermissions" | "default" | "dontAsk" | "plan" | None,  # Deprecated; ignored. Subagents inherit the parent session's permission mode; agent-definition frontmatter may override it
+    "isolation": "worktree" | "remote" | None,  # Isolation mode for the agent's changes
+}
+```
 ```
 
 ---
 
-## `doc-18:c006` — block_type=prose
-`plugins` · prose · 233 tokens · chars 7,507–8,533
+## `doc-18:c015` — block_type=prose
+`plugins` · prose · 235 tokens · chars 16,024–16,981
 
 **text_raw**
 ```
-    <Note>
-      **Why namespacing?** Plugin skills are always namespaced (like `/my-first-plugin:hello`) to prevent conflicts when multiple plugins have skills with the same name.
+Setting `agent` activates one of the plugin's [custom agents](/docs/en/sub-agents) as the main thread, applying its system prompt, tool restrictions, and model. This lets a plugin change how Claude Code behaves by default when enabled.
 
-      To change the namespace prefix, update the `name` field in `plugin.json`.
-    </Note>
-  </Step>
+```json settings.json theme={null}
+{
+  "agent": "security-reviewer"
+}
+```
 
-  <Step title="Add skill arguments">
-    Make your skill dynamic by accepting user input. The `$ARGUMENTS` placeholder captures any text the user provides after the skill name.
+This example activates the `security-reviewer` agent defined in the plugin's `agents/` directory. Settings from `settings.json` take priority over `settings` declared in `plugin.json`. Unknown keys are silently ignored.
 
-    Update your `SKILL.md` file:
+### Organize complex plugins
 
-    ```markdown my-first-plugin/skills/hello/SKILL.md theme={null}
-    ---
-    description: Greet the user with a personalized message
-    ---
+For plugins with many components, organize your directory structure by functionality. For complete directory layouts and organization patterns, see [Plugin directory structure](/docs/en/plugins-reference#plugin-directory-structure).
 
-    # Hello Skill
+### Test your plugins locally
 
-    Greet the user named "$ARGUMENTS" warmly and ask how you can help them today. Make the greeting personal and encouraging.
-    ```
-
-    Run `/reload-plugins` to pick up the changes. The skills count in the summary covers only `commands/`
+Use the `--plugin-dir` flag to test plugins during development. This loa
 ```
 
 **text_embed**
 ```
-**Why namespacing?** Plugin skills are always namespaced (like `/my-first-plugin:hello`) to prevent conflicts when multiple plugins have skills with the same name.
+Setting `agent` activates one of the plugin's [custom agents](/docs/en/sub-agents) as the main thread, applying its system prompt, tool restrictions, and model. This lets a plugin change how Claude Code behaves by default when enabled.
 
-      To change the namespace prefix, update the `name` field in `plugin.json`.
-    
-  
+```json settings.json theme={null}
+{
+  "agent": "security-reviewer"
+}
+```
 
-  
-Add skill arguments
+This example activates the `security-reviewer` agent defined in the plugin's `agents/` directory. Settings from `settings.json` take priority over `settings` declared in `plugin.json`. Unknown keys are silently ignored.
 
-    Make your skill dynamic by accepting user input. The `$ARGUMENTS` placeholder captures any text the user provides after the skill name.
+### Organize complex plugins
 
-    Update your `SKILL.md` file:
+For plugins with many components, organize your directory structure by functionality. For complete directory layouts and organization patterns, see [Plugin directory structure](/docs/en/plugins-reference#plugin-directory-structure).
 
-    ```markdown my-first-plugin/skills/hello/SKILL.md theme={null}
-    ---
-    description: Greet the user with a personalized message
-    ---
+### Test your plugins locally
 
-    # Hello Skill
-
-    Greet the user named "$ARGUMENTS" warmly and ask how you can help them today. Make the greeting personal and encouraging.
-    ```
-
-    Run `/reload-plugins` to pick up the changes. The skills count in the summary covers only `commands/` directories, so it can report `0 skills` ev
+Use the `--plugin-dir` flag to test plugins during development. This loa
 ```
 
 ---
 
-## `doc-07:c028` — block_type=table_row
-`settings` · table_row · 205 tokens · chars 42,529–43,791
+## `doc-07:c027` — block_type=table_row
+`settings` · table_row · 184 tokens · chars 43,791–46,305
 
 **text_raw**
 ```
-| `autoMode`                         | Customize what the [auto mode](/docs/en/permission-modes#eliminate-prompts-with-auto-mode) classifier blocks and allows. Contains `environment`, `allow`, `soft_deny`, and `hard_deny` arrays of prose rules. Include the literal string `"$defaults"` in an array to inherit the built-in rules at that position. See [Configure auto mode](/docs/en/auto-mode-config). Read from user settings, the `--settings` flag, and managed settings only. Ignored in project `.claude/settings.json` and local `.claude/settings.local.json`. {/* min-version: 2.1.207 */}Before v2.1.207, `.claude/settings.local.json` was also read
+| `autoMode.classifyAllShell`        | {/* min-version: 2.1.193 */}**Default**: `false`. When `true`, suspends every Bash and PowerShell allow rule while auto mode is active so all shell commands route through the classifier, not only rules that match arbitrary-code-execution patterns. See [Route all shell commands through the classifier](/docs/en/auto-mode-config#route-all-shell-commands-through-the-classifier). Requires Claude Code v2.1.193 or later
 ```
 
 **text_embed**
 ```
-autoMode
-Description: Customize what the [auto mode](/docs/en/permission-modes#eliminate-prompts-with-auto-mode) classifier blocks and allows. Contains environment, allow, soft_deny, and hard_deny arrays of prose rules. Include the literal string "$defaults" in an array to inherit the built-in rules at that position. See [Configure auto mode](/docs/en/auto-mode-config). Read from user settings, the --settings flag, and managed settings only. Ignored in project .claude/settings.json and local .claude/settings.local.json. {/* min-version: 2.1.207 */}Before v2.1.207, .claude/settings.local.json was also read
-Example: {"soft_deny": ["$defaults", "Never run terraform apply"]}
+autoMode.classifyAllShell
+Description: **Default**: false. When true, suspends every Bash and PowerShell allow rule while auto mode is active so all shell commands route through the classifier, not only rules that match arbitrary-code-execution patterns. See [Route all shell commands through the classifier](/docs/en/auto-mode-config#route-all-shell-commands-through-the-classifier). Requires Claude Code v2.1.193 or later
+Example: true
+
+autoScrollEnabled
+Description: **Default**: true. In [fullscreen rendering](/docs/en/fullscreen), follow new output to the bottom of the conversation. Appears in /config as **Auto-scroll**. Permission prompts still scroll into view when this is off
+Example: false
 ```
 
 ---
 
 ## `doc-07:c066` — largest/smallest doc: settings
-`settings` · table_row · 252 tokens · chars 124,329–126,833
+`settings` · table_row · 122 tokens · chars 131,861–133,113
 
 **text_raw**
 ```
-| `pluginSuggestionMarketplaces`     | (Managed settings only) Marketplace names whose plugins can appear as contextual install suggestions. No marketplace-declared suggestions surface without this allowlist; the built-in first-party frontend-design tip is unaffected. Suggestions come from each plugin's `relevance` declaration in its marketplace entry. A name only takes effect when the marketplace is registered on the machine and its registered source is also declared in managed settings, either as the `extraKnownMarketplaces` entry for that name or as an entry of `strictKnownMarketplaces`. A marketplace registered from a different source under an allowlisted name is ignored. The official marketplace is exempt from the source requirement: allowlisting its name alone suffices, since that name can only register from the official Anthropic source.
+| `prUrlTemplate`                    | URL template for the PR badge shown in the footer and in tool-result summaries. Substitutes `{host}`, `{owner}`, `{repo}`, `{number}`, and `{url}` from the `gh`-reported PR URL. Use to point PR links at an internal code-review tool instead of `github.com`. Does not affect `#123` autolinks in Claude's prose
 ```
 
 **text_embed**
 ```
-pluginSuggestionMarketplaces
-Description: (Managed settings only) Marketplace names whose plugins can appear as contextual install suggestions. No marketplace-declared suggestions surface without this allowlist; the built-in first-party frontend-design tip is unaffected. Suggestions come from each plugin's relevance declaration in its marketplace entry. A name only takes effect when the marketplace is registered on the machine and its registered source is also declared in managed settings, either as the extraKnownMarketplaces entry for that name or as an entry of strictKnownMarketplaces. A marketplace registered from a different source under an allowlisted name is ignored. The official marketplace is exempt from the source requirement: allowlisting its name alone suffices, since that name can only register from the official Anthropic source.
-Example: ["acme-corp-plugins"]
-
-pluginTrustMes
+prUrlTemplate
+Description: URL template for the PR badge shown in the footer and in tool-result summaries. Substitutes {host}, {owner}, {repo}, {number}, and {url} from the gh-reported PR URL. Use to point PR links at an internal code-review tool instead of github.com. Does not affect #123 autolinks in Claude's prose
+Example: "https://reviews.example.com/{owner}/{repo}/pull/{number}"
 ```
 
 ---
@@ -261,51 +236,59 @@ Alternative (macOS/Linux):
 
 ---
 
-## `doc-20:c016` — <Steps> region
-`github-actions` · prose · 249 tokens · chars 14,144–15,184
+## `doc-20:c014` — <Steps> region
+`github-actions` · prose · 234 tokens · chars 12,155–13,223
 
 **text_raw**
 ```
-       * Choose "Only select repositories" and select the specific repository
-       * Click "Install"
-    9. Add the private key as a secret to your repository:
-       * Go to your repository's Settings → Secrets and variables → Actions
-       * Create a new secret named `APP_PRIVATE_KEY` with the contents of the `.pem` file
-    10. Add the App ID as a secret:
+For enterprise environments, you can use Claude Code GitHub Actions with your own cloud infrastructure. This approach gives you control over data residency and billing while maintaining the same functionality.
 
-    * Create a new secret named `APP_ID` with your GitHub App's ID
+### Prerequisites
 
-    <Note>
-      This app will be used with the [actions/create-github-app-token](https://github.com/actions/create-github-app-token) action to generate authentication tokens in your workflows.
-    </Note>
+Before setting up Claude Code GitHub Actions with cloud providers, you need:
 
-    **Alternative for Claude API or if you don't want to setup your own Github app**: Use the official Anthropic app:
+#### For Google Cloud's Agent Platform:
 
-    1. Install from: [https://github.com/apps/claude](https://github.com/apps/claude)
-    2. No additional configuration needed for authentic
+1. A Google Cloud Project with Google Cloud's Agent Platform enabled
+2. Workload Identity Federation configured for GitHub Actions
+3. A service account with the required permissions
+4. A GitHub App (recommended) or use the default GITHUB\_TOKEN
+
+#### For Amazon Bedrock:
+
+1. An AWS account with Amazon Bedrock enabled
+2. GitHub OIDC Identity Provider configured in AWS
+3. An IAM role with Amazon Bedrock permissions
+4. A GitHub App (recommended) or use the default GITHUB\_TOKEN
+
+<Steps>
+  <Step title="Create a custom GitHub App (Recommended for 3P P
 ```
 
 **text_embed**
 ```
-* Choose "Only select repositories" and select the specific repository
-       * Click "Install"
-    9. Add the private key as a secret to your repository:
-       * Go to your repository's Settings → Secrets and variables → Actions
-       * Create a new secret named `APP_PRIVATE_KEY` with the contents of the `.pem` file
-    10. Add the App ID as a secret:
+For enterprise environments, you can use Claude Code GitHub Actions with your own cloud infrastructure. This approach gives you control over data residency and billing while maintaining the same functionality.
 
-    * Create a new secret named `APP_ID` with your GitHub App's ID
+### Prerequisites
 
-    
-      This app will be used with the [actions/create-github-app-token](https://github.com/actions/create-github-app-token) action to generate authentication tokens in your workflows.
-    
+Before setting up Claude Code GitHub Actions with cloud providers, you need:
 
-    **Alternative for Claude API or if you don't want to setup your own Github app**: Use the official Anthropic app:
+#### For Google Cloud's Agent Platform:
 
-    1. Install from: [https://github.com/apps/claude](https://github.com/apps/claude)
-    2. No additional configuration needed for authentication
+1. A Google Cloud Project with Google Cloud's Agent Platform enabled
+2. Workload Identity Federation configured for GitHub Actions
+3. A service account with the required permissions
+4. A GitHub App (recommended) or use the default GITHUB\_TOKEN
+
+#### For Amazon Bedrock:
+
+1. An AWS account with Amazon Bedrock enabled
+2. GitHub OIDC Identity Provider configured in AWS
+3. An IAM role with Amazon Bedrock permissions
+4. A GitHub App (recommended) or use the default GITHUB\_TOKEN
+
   
+Create a custom GitHub App (Recommended for 3P Providers)
 
-  
-Configu
+    For b
 ```

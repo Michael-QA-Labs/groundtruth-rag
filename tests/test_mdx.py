@@ -122,6 +122,35 @@ def test_no_visible_title_attribute_is_ever_dropped():
     assert not lost, f"titles dropped by the transform: {lost[:5]}"
 
 
+def test_mdx_build_comments_are_removed():
+    """{/* ... */} are docs-build directives, invisible on the rendered page."""
+    src = "Some setting. {/* min-version: 2.1.207 */}Before v2.1.207, it differed."
+    out = mdx.transform(src)
+    assert "{/*" not in out
+    assert "min-version" not in out
+    # The prose restating the same fact must survive - that is why dropping the
+    # comment loses nothing a question could hinge on.
+    assert "Before v2.1.207, it differed." in out
+
+
+def test_mdx_comment_syntax_inside_a_fence_is_preserved():
+    """A code example demonstrating the syntax must not be rewritten."""
+    src = "text\n\n```jsx\nconst a = 1; {/* keep me */}\n```\n\nmore"
+    out = mdx.transform(src)
+    assert "{/* keep me */}" in out
+
+
+def test_no_build_comments_survive_in_the_real_corpus():
+    import re
+
+    for path in sorted(CORPUS_DIR.glob("doc-*.md")):
+        out = mdx.transform(path.read_text(encoding="utf-8"))
+        for is_fence, seg in mdx._split_on_fences(out):
+            if is_fence:
+                continue
+            assert not re.search(r"\{/\*", seg), f"build comment left in {path.stem}"
+
+
 def test_layout_html_is_dropped():
     out = mdx.transform('<div class="x"><span>content</span></div>')
     assert out.strip() == "content"

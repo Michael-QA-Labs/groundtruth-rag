@@ -147,6 +147,26 @@ def _flatten_accordions(text: str) -> str:
     return text
 
 
+def _drop_mdx_comments(text: str) -> str:
+    """Remove {/* ... */} build directives.
+
+    These are invisible on the rendered docs page - they are instructions to the
+    docs build system, like {/* min-version: 2.1.207 */} or
+    {/* plan-availability: feature=loop-dynamic */}. 228 of them appear across
+    12% of the chunks, and they cost tokens while carrying nothing a user could
+    ask about.
+
+    Safe to drop: where the version information actually matters, the page
+    restates it in prose immediately afterwards ("Before v2.1.207, ..."), so the
+    fact survives in a form a question can match.
+
+    Measured: all 228 sit outside code fences and none spans a line break. This
+    only ever runs on non-fenced segments anyway, so a code example containing
+    the same syntax would be left alone.
+    """
+    return re.sub(r"\{/\*.*?\*/\}", "", text, flags=re.S)
+
+
 def _flatten_cards(text: str) -> str:
     """<Card title="Best practices" icon="star" href="..."> -> "Best practices"
 
@@ -186,6 +206,7 @@ def transform(text: str) -> str:
             continue
         # Order matters: the structural rules read `title=` attributes, so they
         # must run before _drop_wrapper_tags removes anything tag-shaped.
+        segment = _drop_mdx_comments(segment)
         segment = _flatten_tabs(segment)
         segment = _flatten_steps(segment)
         segment = _flatten_accordions(segment)

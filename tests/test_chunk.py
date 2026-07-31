@@ -110,6 +110,24 @@ def test_split_code_is_not_double_spaced(all_chunks):
         assert "\n\n\n" not in c.text_embed, f"{c.id} has runaway blank lines"
 
 
+def test_no_build_comments_reach_the_embedded_text(all_chunks):
+    """Regression: the equivalent test in test_mdx.py passed while 104 build
+    comments still reached the index, because table cells are rendered by
+    tables.py and never passed through mdx.transform. Testing a module is not
+    the same as testing the pipeline that uses it."""
+    leaked = [c.id for c in all_chunks if "{/*" in c.text_embed]
+    assert not leaked, f"{len(leaked)} chunks carry build comments: {leaked[:5]}"
+
+
+def test_mdx_tags_never_reach_the_embedded_text(all_chunks):
+    """Same class of gap, checked for tags rather than comments."""
+    import re
+    pattern = re.compile(r"</?(Tabs?|Steps?|Note|Tip|Warning|Card\w*|Accordion\w*)\b")
+    leaked = [c.id for c in all_chunks
+              if c.block_type != "code" and pattern.search(c.text_embed)]
+    assert not leaked, f"chunks carrying MDX tags: {leaked[:5]}"
+
+
 def test_every_chunk_has_embeddable_text(all_chunks):
     """A chunk whose text_embed is empty would occupy an ID and a vector slot
     while being unretrievable - dead weight in every metric."""

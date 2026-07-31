@@ -209,7 +209,11 @@ def _table_units(block: str, offset: int) -> list[Unit]:
             out.append(Unit(start, end, "", "table_scaffold"))
             continue
 
-        rendered = tables.render_row(headers, tables.split_cells(stripped))
+        # mdx.transform AFTER rendering, not before: running it on the raw row
+        # first could disturb the pipe structure the cell splitter depends on.
+        # Without this, table cells bypass every MDX rule - which is how 104
+        # build comments survived a corpus-wide test that only checked prose.
+        rendered = mdx.transform(tables.render_row(headers, tables.split_cells(stripped)))
         out.append(Unit(start, end, rendered, "table_row"))
 
     return out
@@ -253,7 +257,11 @@ def split_oversized(unit: Unit, text: str) -> list[Unit]:
         end = min(start + step, unit.end)
         raw = text[start:end]
         # Unstripped, glue="" — the pieces concatenate back into the line.
-        piece = Unit(start, end, raw, unit.kind, glue="")
+        # Still transformed for non-code: this branch previously used the raw
+        # text directly, which is how build comments reached the index from
+        # oversized table rows even after every other path was cleaned.
+        rendered = raw if unit.kind == "code" else mdx.transform(raw)
+        piece = Unit(start, end, rendered, unit.kind, glue="")
         piece.tokens = n_tokens(piece.rendered)
         out.append(piece)
         start = end
