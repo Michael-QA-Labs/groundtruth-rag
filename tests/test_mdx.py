@@ -83,6 +83,45 @@ def test_note_tip_warning_are_unwrapped_keeping_body():
         assert tag not in out
 
 
+def test_card_titles_are_kept():
+    """Regression: dropping <Card> wholesale stranded its description with no
+    subject, so a query for "best practices" could never match the card that
+    links to exactly that page."""
+    src = (
+        '<CardGroup cols={2}>\n'
+        '<Card title="Best practices" icon="star" href="/docs/en/best-practices">\n'
+        'Get better results with effective prompting\n'
+        '</Card>\n'
+        '</CardGroup>\n'
+    )
+    out = mdx.transform(src)
+    assert "Best practices" in out
+    assert "Get better results with effective prompting" in out
+    # icon and href are genuinely decoration.
+    assert "star" not in out
+    assert "<Card" not in out
+
+
+def test_no_visible_title_attribute_is_ever_dropped():
+    """Every tag carrying a human-visible title= must survive the transform.
+
+    This is the automated form of the side-by-side inspection check: text_embed
+    is allowed to look different from text_raw, but it may not LOSE anything a
+    question could hinge on.
+    """
+    import re
+
+    lost = []
+    for path in sorted(CORPUS_DIR.glob("doc-*.md")):
+        text = path.read_text(encoding="utf-8")
+        out = mdx.transform(text)
+        for m in re.finditer(r'<(Step|Tab|Accordion|Card)\s+[^>]*?title="([^"]+)"', text):
+            if m.group(2) not in out:
+                lost.append((path.stem, m.group(1), m.group(2)))
+
+    assert not lost, f"titles dropped by the transform: {lost[:5]}"
+
+
 def test_layout_html_is_dropped():
     out = mdx.transform('<div class="x"><span>content</span></div>')
     assert out.strip() == "content"

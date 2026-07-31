@@ -34,8 +34,11 @@ import re
 # <CodeGroup> is here because the ``` fences inside it already delimit the code.
 PRESENTATIONAL = (
     "Note", "Tip", "Warning", "Info", "Check", "Danger",
-    "CodeGroup", "Card", "CardGroup", "Frame", "Columns", "Expandable",
+    "CodeGroup", "CardGroup", "Frame", "Columns", "Expandable",
 )
+# NOTE: "Card" is deliberately NOT in that list. It carries a title= attribute
+# that is a visible heading on the docs page, so dropping the whole tag would
+# leave an orphaned description with no subject - see _flatten_cards below.
 
 # Raw HTML used for layout in the source. Dropped OUTSIDE fences only.
 HTML_LAYOUT = ("div", "span", "br", "p", "img", "a")
@@ -144,6 +147,24 @@ def _flatten_accordions(text: str) -> str:
     return text
 
 
+def _flatten_cards(text: str) -> str:
+    """<Card title="Best practices" icon="star" href="..."> -> "Best practices"
+
+    Cards are the "explore more" tiles at the foot of a docs page. The title is
+    the visible heading; the body is a one-line description. Dropping the tag
+    wholesale left the description stranded with no subject:
+
+        Get better results with effective prompting and project setup
+
+    which no query for "best practices" could ever match, even though the card
+    is literally a link to that page. `icon` and `href` really are decoration
+    and stay dropped.
+    """
+    text = re.sub(r'<Card\s+[^>]*?title="([^"]*)"[^>]*>', r"\n\1\n", text)
+    text = re.sub(r"</?Card(?:Group)?(?:\s[^>]*)?>", "", text)
+    return text
+
+
 def _drop_wrapper_tags(text: str) -> str:
     """Remove decoration tags, keep their contents."""
     for tag in PRESENTATIONAL:
@@ -168,6 +189,7 @@ def transform(text: str) -> str:
         segment = _flatten_tabs(segment)
         segment = _flatten_steps(segment)
         segment = _flatten_accordions(segment)
+        segment = _flatten_cards(segment)
         segment = _drop_wrapper_tags(segment)
         out.append(segment)
     return "".join(out)

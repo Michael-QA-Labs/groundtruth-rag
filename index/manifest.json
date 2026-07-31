@@ -1,7 +1,7 @@
 {
   "corpus_sha256": "a887366bab9778b59129493073c38a116d55ff8e6657b191be1f9d5678473737",
-  "vectors_sha256": "390740c394725942597fabcb26b971fb91f5985f6f73f87be251601c856364f4",
-  "git_sha": "ba64ded1bbaef77f4842593d3295181ad6bbe759",
+  "vectors_sha256": "2d87c6c37f0da1dc2367fb0b0609e4cb7ad565b8cce3211b2f1e1d946f127fcc",
+  "git_sha": "94b8d209fb5f9775a416e6c2173aaffc2d564194",
   "model": "sentence-transformers/all-MiniLM-L6-v2",
   "embedding_dim": 384,
   "normalized": true,
