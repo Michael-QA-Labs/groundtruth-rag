@@ -52,7 +52,7 @@ beats an unreproducible current one.
 ## D2 — 30 Claude Code pages; dropped the 6 API-platform pages
 
 **Decision.** All 30 pages come from `code.claude.com/docs/en/`. The starter
-list in `DAY-01-CORPUS.md` also suggested 6 pages from
+list of candidate pages also included 6 from
 `platform.claude.com/docs/en/` (`intro`, `get-started`, tool-use, agent-skills,
 mcp-tunnels). Those were dropped and replaced with 6 more Claude Code pages:
 `checkpointing`, `plugins`, `worktrees`, `output-styles`, `agent-sdk/python`,
@@ -81,7 +81,7 @@ to make. `API_BASE` is still defined in `fetch_corpus.py` for that reason.
 
 **Decision.** `settings` (272K), `hooks` (242K), and `agent-sdk/python` (194K)
 are **40% of the corpus** between them. `checkpointing` is 8K — a 34x spread.
-`DAY-01-CORPUS.md` says drop it or note it. Keeping all three.
+The initial plan said drop them or note them. Keeping all three.
 
 **Why keep.** `settings` and `hooks` are two of the pages real users have the
 most questions about. Dropping them to tidy the size distribution would mean
@@ -105,7 +105,7 @@ small pages. If they do, the story is skew, not retrieval quality.
 
 ## D4 — MDX: keep the corpus raw, transform selectively at chunk time
 
-This is the call `DAY-01-CORPUS.md` flags as interview bait, so the reasoning
+This is the call most likely to be challenged, so the reasoning
 matters more than the answer.
 
 **What's actually in there.** 467 component tags across the 30 pages:

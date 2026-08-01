@@ -3,7 +3,7 @@
 ## Context
 
 Day 2 turns the frozen 30-doc corpus into a searchable index. The binding
-constraint is not retrieval quality — PLAN.md wants the retriever *deliberately
+constraint is not retrieval quality — the project plan wants the retriever *deliberately
 crude*. It is that **everything from Day 3 to Day 12 is built on Day 2's output**,
 and several Day 2 choices are effectively irreversible once gold labeling starts.
 
@@ -33,7 +33,7 @@ Labels reference byte-exact source text, so a rendering bug degrades retrieval b
 
 ### 2. Label at two granularities from one label
 
-`gold-set-template.md` labels at doc level (`doc-04`); `PLAN.md` specifies chunk
+`gold-set-template.md` labels at doc level (`doc-04`); the project plan specifies chunk
 level (`doc-04:c02`). **They disagree.** Resolution: a chunk ID contains its doc
 ID, so record both.
 
@@ -166,14 +166,14 @@ in stage B.
 
 ## Scope and sequencing
 
-PLAN.md budgets **5 hours** for Day 2, assuming Michael writes the code. Here
-Claude writes it, so the real constraint is **review time, not writing time** —
-the project rule requires Michael can explain every line tomorrow, and Day 2 is
-roughly 5x Day 1's volume.
+The plan budgets **5 hours** for Day 2 on the assumption I hand-write the code.
+This stage was AI-assisted instead, which moves the binding constraint from
+writing time to **review time** — the project rule is that I can explain every
+line the next day, and Day 2 is roughly 5x Day 1's volume.
 
 Day 2 builds the *tools* Days 3–5 need; it cannot do their work. Writing 30
-questions from memory and judging which chunks answer them is irreducibly
-Michael's. Each stage below ends somewhere usable, with a review pause:
+questions from memory and judging which chunks answer them is irreducibly mine.
+Each stage below ends somewhere usable, with a review pause:
 
 | Stage | Deliverable | Cuttable? |
 |---|---|---|
@@ -195,7 +195,7 @@ holds for code this size.
 - `python src/search.py "how do I stop Claude asking before every file edit?"`
   returns 10 ranked chunk IDs with doc IDs
 - `pytest` green
-- `--inspect 10` output read and judged sane by Michael
+- `--inspect 10` output read and judged sane by me
 
 ## Residual risks
 
@@ -209,5 +209,5 @@ holds for code this size.
 | Day 11 lacks per-question data | **Closed** — JSON results from Day 8 onward |
 | `torch` on Python 3.14 | **Open** — fallback: 3.12/3.13 venv, or `fastembed` (ONNX). No design impact |
 | Answers straddling chunks | **Open by design** — gold format supports multiple chunks (Q10 is multi-hop); a Day 3 judgment |
-| Comprehension debt — Day 2 is ~5x Day 1's code, and the project rule is "every line is one you can explain tomorrow" | **Managed** — staged A–E with a review pause after each. This, not schedule, is the real scarce resource: Claude writes the code, so Michael's review time is the constraint |
-| Day 2 overruns and consumes Days 3–5 *calendar time* (it cannot do their work — the gold set is irreducibly Michael's judgment) | **Managed** — stage E is the release valve; A–D are load-bearing |
+| Comprehension debt — Day 2 is ~5x Day 1's code, and the project rule is "every line is one you can explain tomorrow" | **Managed** — staged A–E with a review pause after each. This, not schedule, is the real scarce resource: the code is AI-assisted, so my review time is the constraint |
+| Day 2 overruns and consumes Days 3–5 *calendar time* (it cannot do their work — the gold set is irreducibly my judgment) | **Managed** — stage E is the release valve; A–D are load-bearing |

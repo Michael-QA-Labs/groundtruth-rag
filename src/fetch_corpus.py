@@ -39,7 +39,7 @@ API_BASE = "https://platform.claude.com/docs/en"
 # changing this list changes every number computed downstream, which makes old
 # results uncomparable with new ones. See notes/decisions.md (D1).
 #
-# Note: the starter list in DAY-01-CORPUS.md also included 6 API pages from
+# Note: the initial candidate list also included 6 API pages from
 # platform.claude.com. Those were dropped in favour of 6 more Claude Code
 # pages — see notes/decisions.md (D2) for why, and what it costs us.
 PAGES = [
