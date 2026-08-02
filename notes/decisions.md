@@ -166,6 +166,95 @@ not a Day 2 one.
 
 ---
 
+## D5 — A chunk is gold only if the answer is impossible without it
+
+Made 2026-08-01, before labeling any of the 25 answerable questions. Deciding
+this *after* labeling would mean the rule got fitted to the labels.
+
+**Decision.** Strict / necessary inclusion. A chunk is gold if and only if:
+
+> Delete this chunk from the corpus. Is the gold answer still fully supported by
+> the remaining gold chunks? If yes — **not gold.**
+
+Applied identically to all 25. Not re-litigated per question.
+
+**The case that forced the choice.** *"How do I stop Claude asking me before
+every single file edit?"* The chunker split the permission-modes table:
+
+| Chunk | Contents | Gold? |
+|---|---|---|
+| `doc-02:c008` | `Shift+Tab` cycles modes; `acceptEdits` auto-approves edits | yes |
+| `doc-10:c005` | table header + the `acceptEdits` row | yes |
+| `doc-10:c006` | continuation rows: `auto`, `dontAsk`, `bypassPermissions` | **no** |
+
+`doc-10:c006` is a genuinely hard call. `bypassPermissions` reads "Skips
+permission prompts", which *does* stop the asking. It fails the test anyway: the
+answer is complete with `c005` alone, so `c006` is an alternative route, not a
+requirement.
+
+**Why strict over contributory.** The loose rule ("contains anything a correct
+answer would draw on") has no natural stopping point. Under it, Q12 ("key
+features unique to claude code") and Q14 ("starting a project") could each
+justify 15 chunks, and by question 19 the working definition has quietly drifted
+to "on topic". A rule that drifts isn't a rule — and it drifts in the direction
+that flatters the numbers, because bigger gold sets make recall@10 easier to
+satisfy by accident.
+
+**Cost — and it's a real one.** Strict labels understate recall in a specific
+way. If retrieval returns `doc-10:c006` at rank 2, that scores as a miss even
+though a generator handed that chunk could answer the question. So the recall
+numbers are a **lower bound**, not a point estimate. Say that in the README
+rather than letting a reader assume otherwise.
+
+### D5a — amendment, same day: the delete test scores the SET, not each chunk alone
+
+Q23 broke the rule as originally written, about an hour after it was written.
+
+**The break.** Q23 is "how do we switch between models in the cli", gold answer
+"use `/model` to switch mid-session". Two chunks support that independently:
+`doc-03:c002` ("Switch with `/model` during a session") and `doc-07:c015` ("use
+`/model` to switch mid-session"). Applying the delete test chunk by chunk:
+remove either and the answer survives on the other, so *neither* is necessary,
+so the gold set is empty. The question is plainly answerable. The rule was
+wrong, not the question.
+
+**The amendment.** The delete test asks whether a *candidate set* is minimal and
+sufficient — it is not applied to chunks one at a time in isolation. When two or
+more chunks are **mutually redundant** (each independently sufficient), they are
+**alternatives**, and all of them are gold. Retrieving any one is a success for
+the user, so all of them must be able to count as a hit.
+
+This is the same principle already in the gold template's rule 4 about the four
+byte-identical duplicate groups, generalised: rule 4 covers chunks with identical
+*text*, D5a covers chunks with equivalent *content*.
+
+**Consequence for the metric, and it is not cosmetic.** Recall is
+`|retrieved ∩ gold| / |gold|`. With two alternatives and one retrieved, recall
+scores 0.5 even though the user got a complete answer. Recall therefore
+understates performance on every alternatives-style question — on top of the
+lower-bound effect D5 already documents.
+
+**Not fixing this with a new metric.** The plan already computes MRR and
+first-relevant-rank, and those capture exactly what recall misses here: how
+quickly *some* sufficient chunk arrived. Read them together. A question with
+recall@10 = 0.5 and first-relevant-rank = 1 was answered well; the same recall
+with first-relevant-rank = 9 was not. Introducing a separate success@k would add
+a fourth metric to explain in the README to say something MRR already says.
+
+**Say this in the README.** A gold set where every label is independent is easy
+to score and rare in practice. Documenting that alternatives exist, and that
+recall understates them, is more honest than a clean number that hides it.
+
+**Consequence for Day 8.** Some "failures" will be near-misses of exactly this
+kind. Read the retrieved text before classifying any failure as a retrieval
+error; the failure taxonomy needs to separate R1 (nothing relevant retrieved)
+from a strict-labeling artifact. Rejected recording a `Near miss:` field per
+question — it's 25 extra judgements to serve one day of analysis, and Day 8 can
+recover the same information by reading the top 10 for the handful of questions
+that actually score badly.
+
+---
+
 ## Housekeeping
 
 `~/corpus/` holds the first (28 Jul) fetch — slug-named files under `pages/`,

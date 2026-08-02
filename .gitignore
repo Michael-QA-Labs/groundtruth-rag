@@ -34,8 +34,8 @@ index/vectors.npz
 # Private working notes — personal planning docs, not part of the project.
 # These were removed from git history before the repo went public. Re-adding
 # them (`git add -f`) would undo that, so don't.
-CONTEXT.md
-EXERCISE-01.md
-PLAN.md
-DAY-01-CORPUS.md
-notes/findings.md
+#
+# One directory rule instead of five filenames: a new personal doc is private
+# by virtue of where it lives, so there is no filename left to forget.
+# Nothing in here is version-controlled — git cannot restore what it never saw.
+private/
