@@ -253,6 +253,113 @@ question — it's 25 extra judgements to serve one day of analysis, and Day 8 ca
 recover the same information by reading the top 10 for the handful of questions
 that actually score badly.
 
+### D5b: clarification, 2026-08-05, "alternative" means two opposite things above
+
+No rule changes here. D5 and D5a use the same word for opposite cases, and
+reading D5a on its own makes its scope look open when it is not.
+
+| Term | Case | Gold? |
+|---|---|---|
+| D5's "alternative route" | a **different** fact that also solves the user's problem: `bypassPermissions` where the gold answer says `acceptEdits` | **no** |
+| D5a's "alternatives" | the **same** fact restated on another page: `/model` in `doc-03:c002` and `doc-07:c015` | **yes** |
+
+**So "independently sufficient" in D5a means sufficient for the gold answer, not
+sufficient for the question.** D5 settles this with a harder example than any
+that has come up since: `doc-10:c006` says `bypassPermissions` "skips permission
+prompts", which genuinely does stop Claude asking, and D5 rules it out anyway
+because the gold answer is complete without it.
+
+**D5a's trigger is narrow.** It exists because mutual restatement makes the
+delete test return an *empty* gold set: delete either `/model` chunk and the
+other still suffices, so neither is necessary, so nothing is gold and the
+question is plainly answerable. That pathology is the only thing it fixes. If
+the gold set is non-empty without a chunk, D5 governs and the chunk is out.
+
+**Why this needed writing down.** On the Day 5 review the question-anchored
+reading nearly got applied to Q10 (`doc-03:c017` gives real prompting advice, but
+not the advice the gold answer gives) and to Q30 (`doc-05:c019` defines a
+`security-reviewer` subagent, a third route the answer never mentions). Both are
+D5 alternative routes and both stay out. Under the loose reading, Q10's gold set
+would grow to most of a page and its recall@3 would be capped near 0.3 by the
+question's breadth rather than by anything the retriever did.
+
+**Consequence for the systematic D5a sweep.** The sweep looks for restatements of
+claims the gold answers already make. It does not look for other ways to serve
+the user. That keeps it a bounded grep per question rather than a judgement
+against all 1,637 chunks, and it is what was actually done on Q14 and Q26.
+
+**One place the loose reading had already leaked in**, found by this review:
+Q30's rationale read "Alternatives under D5a: `doc-12:c002` names the bundled
+review skills, `doc-05:c032` gives the adversarial-subagent route. Either alone
+answers 'what can I use'." The chunks are right and the reasoning was wrong. That
+gold answer asserts both limbs, so the two chunks are complements under plain D5
+and each is necessary. "Either alone answers the question" is the
+question-anchored test. Corrected on the entry.
+
+---
+
+## D6: "Rare" is a page count, and the answer sweeps rather than sits on one number
+
+Day 5's rule is "rewrite any question sharing 3+ rare words with its own gold
+chunk". Nothing defined *rare*, so the rule could not run. `src/leakage.py`
+defines it and reports the result.
+
+**Rare = the term appears on N or fewer of the 30 pages.** Document frequency,
+not chunk frequency: "this word is on 2 of 30 pages" is defensible in one
+sentence, "this word is in 14 of 1,637 chunks" is not. Stopwords then fall out
+for free, since "the", "run" and "claude" are on nearly every page and can never
+be rare, so no hand-written stopword list has to be justified.
+
+**Both sides are tokenised by splitting on every non-alphanumeric character.**
+The corpus writes `settings.json`, `claude-code`, `acceptEdits`; you type
+"settings json", "claude code". Split only one side and the two vocabularies can
+never intersect, so the check reports zero leaks regardless of what the gold set
+contains. Plurals fold onto their singular, but only when the singular is itself
+in the corpus. Copying "hooks" and typing "hook" is still copying, while a
+general stemmer would start relating words that only look alike.
+
+**The first run returned 0 at N=3 and the number was junk.** 55% of this
+corpus's vocabulary sits at 3 pages or fewer, but that tail is code identifiers
+and one-off strings nobody types into a question. The product vocabulary a
+question could actually borrow sits far above it (`rewind` on 7 pages,
+`checkpoint` on 6, `statusline` on 4) because these pages cross-reference each
+other constantly. A 30-page corpus has too little resolution at the bottom of
+the range for a single threshold to mean anything.
+
+**So the output sweeps the threshold.** A run reporting "0 flagged" at one
+arbitrary N is indistinguishable from a check that can only ever return zero,
+and that distinction is the entire value of running it.
+
+**Result, 2026-08-04: 0 of 24, and it holds until "rare" means 16 of 30 pages.**
+Q16 is the closest to a flag and only trips once `outside` (16 pages) counts as
+rare, at which point the definition covers more than half the corpus and means
+nothing.
+
+**Re-run 2026-08-05 after Q14 and Q26 were re-labeled: still 0 of 24, and the
+sweep is unchanged.** But the rarest shared term in the set moved. It was `undo`
+at 6 pages, on Q16. It is now `health` at 2 pages, on Q26, which acquired it by
+gaining `doc-08:c006` ("install health") as a D5a alternative. One term against a
+threshold of three, so nothing flags, and the question predates the label by two
+days, so nothing was copied. Recording it because it is the one number in this
+file that a later label change can invalidate silently: adding a gold chunk adds
+gold text, and gold text is half of what this check intersects. **Re-run
+`src/leakage.py` after any re-labeling.**
+
+**The credit belongs to Day 3's protocol, not to the questions.** They were
+written with the docs closed, before any chunk was opened, so there was no page
+to copy from. This check cannot prove that a question was written honestly; it
+can only fail to find the fingerprint that dishonesty leaves. What it does rule
+out is the specific failure where Day 8's recall looks strong because the
+questions were built from the chunks that answer them.
+
+**Why this could not be done by re-reading.** You wrote the questions. Their
+vocabulary feels like yours whichever way it got there. The only way to separate
+"my words" from "the page's words" is to count against the corpus.
+
+**The script decides nothing.** Q02 is "how do i import a plugin" and its gold
+chunks are about installing plugins; of course they share the word. That is the
+question's subject, not borrowed phrasing. A flag is a reading assignment.
+
 ---
 
 ## Housekeeping

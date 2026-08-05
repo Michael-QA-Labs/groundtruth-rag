@@ -478,6 +478,30 @@ answer is therefore scoped to the corpus's own explicit prompting-advice block,
 **Day 5 candidate.** If the intent was broader, this question needs splitting.
 As written it is close to Q12 and Q14 in breadth.
 
+**KEPT on the Day 5 review, 2026-08-05, with the breadth recorded rather than
+fixed.** The label is correct: `doc-02:c011` supports both claims the gold answer
+makes, near-verbatim. What is not correct is the question, and no label can fix
+that.
+
+**Read a low score here as breadth, not as retrieval failure.** The corpus
+answers this across a page, so several chunks would leave a user genuinely
+served while scoring zero. `doc-03:c017` is the clearest: "Be specific upfront.
+The more precise your initial prompt, the fewer corrections you'll need.
+Reference specific files, mention constraints, and point to example patterns."
+That is real prompting advice and it supports nothing this gold answer claims,
+so under D5 it is an alternative route and stays out, the same ruling D5 gives
+`doc-10:c006`. See D5b.
+
+**What that means for Day 8.** If this question scores badly, check what came
+back before writing it up as a retrieval miss. A near-miss here is a property of
+a question with no determinate answer, and the honest fix is a narrower question
+in a v2 gold set, not a bigger gold set now.
+
+**Why not rewritten.** Rewriting costs a re-label and buys a cleaner number on a
+question that has no vocabulary leak and a correct label. Documenting the
+weakness is worth more than hiding it, and one question whose ceiling is set by
+its own breadth is a fact about this gold set that the README should carry.
+
 **Retrieved top 10:**
 
 | Metric | Value | Working |
@@ -575,7 +599,7 @@ at startup" to remove even that overlap.
 **Type:** procedural
 **Source:**
 **Answerable:** yes
-**Gold chunks:** `doc-03:c016`
+**Gold chunks:** `doc-03:c016`, `doc-05:c010`, `doc-06:c006`
 **Gold answer:** Run `/init`, which walks you through creating a CLAUDE.md for
 your project.
 **Not covered because:** n/a
@@ -596,6 +620,35 @@ the documented entry point.
 
 **Day 5 candidate**, for the same breadth reason as Q10 and Q12. If the intent
 was the launch reading, this collapses into Q01 and one of them should go.
+
+**RE-LABELED on the Day 5 re-read, 2026-08-04. Two alternatives were missing.**
+D5a says mutually redundant chunks are all gold, and `/init` is documented three
+times in the corpus, each time sufficiently:
+
+| Chunk | What it states alone |
+|---|---|
+| `doc-03:c016` | "`/init` walks you through creating a CLAUDE.md for your project" |
+| `doc-05:c010` | "Run `/init` to generate a starter CLAUDE.md file based on your current project structure" |
+| `doc-06:c006` | "Run `/init` to generate a starting CLAUDE.md automatically. Claude analyzes your codebase and creates a file..." |
+
+**`doc-05:c011` deliberately excluded, and it is the closest call in the set.**
+It says "the `/init` command analyzes your codebase to detect build systems, test
+frameworks, and code patterns, giving you a solid foundation to refine", and it
+opens by defining what CLAUDE.md is. A reader joins those. But the chunk never
+states that `/init` produces a CLAUDE.md, and the delete test asks what the chunk
+supports, not what an attentive reader can infer beside it. Revisit if the Day 8
+failure analysis lands on this question.
+
+**What this costs.** Gold went from 1 chunk to 3, so retrieving `doc-03:c016` at
+rank 1 and nothing else now scores recall 0.33 rather than 1.0, on a question the
+user would consider fully answered. Same D5a effect flagged on Q04. Read it
+against first-relevant-rank.
+
+**This also breaks the Q26 correlation**, which was the reason the question was
+flagged. That was a side effect, not the motive: the label was wrong under a rule
+written on Day 4, and would have been wrong with no correlation anywhere. The
+questions were not rewritten. Rewriting a question to decorrelate a statistic
+would be adjusting the instrument to suit the analysis.
 
 **Retrieved top 10:**
 
@@ -782,6 +835,22 @@ template rule 5 asks for. The substring-versus-word-boundary distinction is
 itself worth keeping: a naive `--find RAG` returns 31 hits and looks like solid
 coverage.
 
+**KEPT on the Day 5 decision, 2026-08-04. The set has 6 unanswerable, not 5.**
+Day 4 left this open: accept 6, or rewrite Q19 to hit the target of 5. Keeping
+it. The only argument for rewriting was a number chosen on Day 0, before any
+question existed, and this is the single best-evidenced unanswerable of the six.
+Deleting the strongest one to make a target come out round is the exact move this
+project exists to avoid, and it would have to be explained in the README, where
+"we removed a question because we had one too many" reads worse than 6.
+
+6 of 30 is a 20% abstention rate, which is a defensible share for measuring
+whether a system declines to answer rather than inventing. The target was never
+load-bearing: nothing downstream needs 5, both the metric denominators and the
+Day 11 bootstrap take whatever number the labeling produced.
+
+**Consequence:** 24 answerable, 6 unanswerable. Metric denominators updated in
+the Averages block below, which had been written expecting 25 and 5.
+
 **Retrieved top 10:**
 
 | Metric | Value | Working |
@@ -964,6 +1033,14 @@ behavior, and the forking contrast in one place, so nothing else is necessary.
 has a trailing clause that does not parse. The resume intent is clear enough to
 label; flag it for a Day 5 cleanup.
 
+**AWAITING AN AUTHOR REWRITE, 2026-08-05.** Confirmed on the Day 5 review and
+deliberately left alone. The trailing "after settings" may have meant something
+specific about settings changes surviving a restart, which is a different
+question with a different answer, and guessing at it would put words in the
+author's mouth on one of the few questions where the intent is genuinely unclear.
+The gold answer and label are correct for the resume reading and do not depend on
+how the wording is fixed. **This is the last open item on the Day 5 re-read.**
+
 **Retrieved top 10:**
 
 | Metric | Value | Working |
@@ -1017,14 +1094,37 @@ Moves this question off the `how-claude-code-works` summary page and onto
 **Type:** procedural
 **Source:**
 **Answerable:** yes
-**Gold chunks:** `doc-03:c016`
+**Gold chunks:** `doc-03:c016`, `doc-08:c006`
 **Gold answer:** Run `/doctor`, which performs a setup checkup that diagnoses
-installation and configuration problems and can fix them.
+installation and configuration problems and can fix them. From the terminal
+without starting a session, `claude doctor` prints the same diagnostics
+read-only.
 **Not covered because:** n/a
 
 *Gold answer written by Claude, not the author.*
 
-See the correlation note on Q25: both questions resolve to `doc-03:c016`.
+**RE-LABELED on the Day 5 re-read, 2026-08-04.** `doc-08:c006` in
+`cli-reference` documents `claude doctor` as printing "installation and settings
+diagnostics from the terminal without starting a session, including install
+health, settings-file validation errors, and Remote Control eligibility", and
+names `/doctor` as the in-session checkup that can also apply fixes. It answers
+the question without `doc-03:c016`, so under D5a it is an alternative and it is
+gold. It was missed on Day 4.
+
+**The gold answer gained a sentence** because the CLI form is a genuinely
+different way to do the thing asked about, and an answer that omits it would fail
+to use half its own evidence.
+
+**Nine other chunks mention `/doctor` and none of them qualify.** `doc-07:c015`
+is about listing stripped policy entries, `doc-06:c034` about proposing CLAUDE.md
+trims, `doc-12:c002` merely lists it among bundled skills. Each is `/doctor` in
+service of a narrower question, not an answer to "is my environment healthy".
+Mentioning the command is not the same as documenting the checkup.
+
+**Previously the only shared-chunk collision in the set** (with Q14, both on
+`doc-03:c016` alone). Both were under-labeled, and correcting both leaves
+`doc-03:c016` as one alternative of two here and one of three there. See the
+correlation note in the Tally.
 
 **Retrieved top 10:**
 
@@ -1152,9 +1252,25 @@ subagent definition; the tip lives at the tail of `doc-05:c032`. The label and
 the answer pointed at different chunks, which is the kind of error that only
 shows up when someone reads both.
 
-Alternatives under D5a: `doc-12:c002` names the bundled review skills,
-`doc-05:c032` gives the adversarial-subagent route. Either alone answers "what
-can I use".
+**Complements under D5, not alternatives under D5a. Rationale corrected
+2026-08-05.** It previously read "either alone answers 'what can I use'", which
+is the question-anchored test D5b rules out. The gold answer asserts both limbs:
+`doc-12:c002` supports the bundled review skills, `doc-05:c032` supports the
+adversarial-subagent step. Delete either and half the answer loses its support,
+so each is necessary under plain D5 and D5a never enters. Same chunks, right
+reason.
+
+**`doc-05:c019` considered and rejected**, on the D5 rule that excluded
+`doc-10:c006` in the permissions case. It defines a `security-reviewer` subagent,
+which is a real third route to safer code, and the gold answer does not take it.
+An alternative route is not gold.
+
+**One unstated condition in the gold answer.** "Run only when you invoke them" is
+true from v2.1.215; `doc-12:c002` says that before it, Claude could run
+`/verify` and `/code-review` on its own. The answer states it flatly. Left as is,
+because the corpus snapshot is post-2.1.215 and every other answer in the set
+describes current behavior, but it is the kind of condition a judge could mark
+either way.
 
 **Note `doc-05:c032` now serves two questions** (this and Q06), on different
 content: its body is about auto mode, its closing tip is about adversarial
@@ -1213,17 +1329,29 @@ estimated.
 | Questions written | 30 | **30** |
 | Marked unanswerable | 5 | **6** — over target, see below |
 | Multi-hop (2+ gold chunks) | 3+ | **11** of 24 answerable |
-| Questions sharing 3+ rare words with their own gold chunk | 0 | **not yet checked** — Day 5 |
+| Questions sharing 3+ rare words with their own gold chunk | 0 | **0** of 24, checked 2026-08-04 |
 | Questions rewritten | count | **7** |
 | Questions whose gold label was revised | count | **6** |
 
-**Unanswerable is 6, not 5.** Q19 (RAG) is the extra: a word-boundary regex over
-all 1,637 chunks returns zero hits. Accept 6 or rewrite Q19 on Day 5.
+**Unanswerable is 6, not 5, and that is now the final count.** Q19 (RAG) is the
+extra: a word-boundary regex over all 1,637 chunks returns zero hits. Decided on
+Day 5, 2026-08-04: kept. It is the best-evidenced unanswerable in the set, and
+the only case for cutting it was a target number written on Day 0. Reasoning on
+the Q19 entry.
 
-**Multi-hop distribution:** 13 answerable questions have one gold chunk, 11 have
-two or more. Q04 has four, three of which are interchangeable pipe demonstrations
-and will depress its recall to 0.25 even when the user is fully served. Flagged
-on that entry.
+**Zero vocabulary leaks, and the zero survives the threshold moving.** Counted by
+`src/leakage.py`, not by re-reading. Nothing is flagged until "rare" is stretched
+to 16 of 30 pages, at which point the word doing the flagging is `outside` and
+the definition has stopped meaning anything. Rule and reasoning in
+`notes/decisions.md` D6. Re-run 2026-08-05 after the Q14 and Q26 re-labeling:
+unchanged at 0 of 24. The rarest shared term in the set is now `health` on 2 of
+30 pages, held by Q26, which picked it up along with `doc-08:c006`. One term
+against a threshold of three.
+
+**Multi-hop distribution:** 11 answerable questions have one gold chunk, 13 have
+two or more, after the Day 5 re-labeling of Q14 and Q26 below. Q04 has four,
+three of which are interchangeable pipe demonstrations and will depress its
+recall to 0.25 even when the user is fully served. Flagged on that entry.
 
 **The 7 rewrites, all on Day 4 rather than Day 5**, because labeling exposed the
 problems before the re-read pass could:
@@ -1243,10 +1371,51 @@ verification pass that checked each gold answer's claims against the `text_raw`
 of every chunk it cited. That is a **25% defect rate** on 24 first-pass labels.
 Details per entry and in `private/findings.md`.
 
+**Day 5 authorship review, 2026-08-05: all 17 answerable Claude-drafted answers
+verify, 0 further defects.** 23 of the 30 gold answers were drafted by Claude and
+say so inline; 17 of those are answerable and therefore have claims to check.
+Every claim traces to a cited chunk, most near-verbatim. Q21 and Q30, the two
+carried as lower-confidence since Day 4, are both sound and that flag is cleared.
+
+A second pass finding nothing is weak evidence on its own, since both passes were
+run the same way by the same kind of reader. What it does establish is that the
+6 defects Day 4 found were actually fixed rather than reworded, and that nothing
+new was introduced by fixing them.
+
+**What the review found instead was three defects of a kind the first pass could
+not see, because it was checking answers against chunks rather than questions
+against themselves:** Q24's wording is garbled and awaits an author rewrite,
+Q10's breadth caps its own score no matter what the retriever does, and Q30's
+rationale had the wrong rule written into it. Two of the three are properties of
+questions, not labels. A verification pass aimed at labels will never find them,
+which is the argument for the Day 5 re-read existing as a separate day.
+
+**Author-written throughout:** Q01-Q05, Q15, Q23. This distinction goes in the
+README with its counts. Anyone asking which answers were written by hand and
+which were drafted by a model should get the number, not a characterization.
+
 **Known correlations for Day 11.** The bootstrap assumes questions are
-independent draws. These pairs are not: Q14 and Q26 both resolve to
-`doc-03:c016`; Q06 and Q30 both cite `doc-05:c032`, on different parts of it. Two
-pairs out of 24 is tolerable. More would not be.
+independent draws. Q06 and Q30 both cite `doc-05:c032`, on different parts of it.
+One pair out of 24 is tolerable. More would not be.
+
+**The Q14/Q26 collision is gone, and the fix was a label, not a rewrite.** Both
+resolved to `doc-03:c016` alone, which is a single 248-token chunk containing a
+two-item bullet list: one line on `/init`, one on `/doctor`. A single retrieval
+decided both questions, which is as correlated as two questions can get. The
+Day 5 re-read found that both were simply under-labeled under D5a. Q14 has three
+independently sufficient chunks, Q26 has two, and `doc-03:c016` is now one
+alternative among them rather than the whole answer. Neither question was
+touched. Rewriting a question to break a statistical correlation would be
+changing the instrument to suit the analysis, and the labels were wrong on their
+own terms regardless.
+
+**This raises a question the Day 5 re-read has not answered.** Q14 and Q26 were
+re-checked because they collided, and both turned out to be missing alternatives.
+Nothing suggests the collision caused the defect, so the other 22 answerable
+questions may carry the same one. Restating a fact on three pages is normal for
+these docs. A systematic D5a sweep, grepping each gold answer's key terms across
+the corpus with `show.py --find`, is the honest next step, and it will push
+recall down further wherever it finds something. Not yet done.
 
 **Page coverage: 15 of 30.** Deliberate. The set reflects questions actually
 worth asking, not the shape of the corpus. Forcing 30/30 would mean writing
@@ -1258,7 +1427,7 @@ re-read.
 
 # Averages
 
-Across the 25 answerable questions only.
+Across the 24 answerable questions only.
 
 | Metric | Mean |
 |---|---|
@@ -1267,9 +1436,9 @@ Across the 25 answerable questions only.
 | precision@3 | |
 | MRR | |
 
-**Answerable questions where no gold chunk appeared in the top 10:** ___ / 25
+**Answerable questions where no gold chunk appeared in the top 10:** ___ / 24
 
 That count is your ceiling. No amount of prompt work on a generator fixes a
 question whose evidence was never retrieved.
 
-**Unanswerable questions correctly declined:** ___ / 5
+**Unanswerable questions correctly declined:** ___ / 6
