@@ -224,7 +224,7 @@ the corpus, not an answer inside it, and the gold answer does not depend on it.
 **Type:** procedural
 **Source:**
 **Answerable:** yes
-**Gold chunks:** `doc-08:c000`, `doc-01:c011`, `doc-04:c016`, `doc-05:c028`
+**Gold chunks:** `doc-08:c000`, `doc-01:c011`, `doc-04:c016`, `doc-05:c028`, `doc-19:c008`
 **Gold answer:** Pipe the content into non-interactive mode and ask for JSON:
 `cat file | claude -p "extract the fields you want" --output-format json`. Stdin
 and stdout behave like any Unix tool.
@@ -239,7 +239,22 @@ out) is well documented; the route is stdin, not the clipboard.
 | Claim | Chunks |
 |---|---|
 | pipe content into `claude -p` | `doc-08:c000`, `doc-01:c011`, `doc-04:c016`, alternatives under D5a |
-| ask for JSON with `--output-format json` | `doc-05:c028` |
+| ask for JSON with `--output-format json` | `doc-05:c028`, `doc-19:c008`, alternatives under D5a |
+
+**`doc-19:c008` added by the D5a sweep, 2026-08-05.** It documents the flag in
+prose rather than using it in passing: "To get output conforming to a specific
+schema, use `--output-format json` with `--json-schema`", followed by a worked
+extraction example on the same page as the `claude -p` surface the gold answer
+uses. That is the bar this entry already set when it rejected `doc-08:c026`.
+
+**This makes the recall problem below worse, not better, and it is still
+correct.** Five gold chunks now, so a retriever that returns one sufficient
+chunk scores 0.20. The label describes the corpus; the metric's discomfort with
+that is a fact about recall, not a reason to under-label.
+
+**`doc-19:c010` rejected.** It is the code continuation of `c008`'s example and
+its own prose documents `--output-format stream-json`, a different flag. Same
+ruling as `doc-08:c026`.
 
 **Flagged for Day 5, and this one is a genuine problem.** Four gold chunks makes
 recall@10 hard to satisfy: three of them are interchangeable demonstrations of
@@ -362,6 +377,35 @@ exists". Chunk says "deny rules", "bare tool name", "removes the tool from
 Claude's context". No rare term is shared, so the retriever has to bridge
 block → deny and know it exists → sees it semantically.
 
+**`doc-26:c023` found by the D5a sweep and REJECTED, 2026-08-05. The strongest
+candidate the sweep produced anywhere, and the rejection is the finding.** It
+says: "A bare tool name such as `"Bash"` removes the tool from Claude's context,
+the same as omitting it from `tools`. A scoped rule such as `"Bash(rm *)"`
+leaves the tool in context and denies only matching calls." That asserts both of
+this answer's claims outright, more cleanly than most accepted alternatives in
+the set.
+
+It is rejected because it documents the **Agent SDK's** `disallowedTools`, while
+the gold answer describes Claude Code's `permissions.deny`. Same behavior,
+different product, different configuration file.
+
+**What the rejection protects is worth more than the label.** No gold chunk
+anywhere in this set comes from an `agent-sdk/*` page, and those are 7 of the 30
+pages and 363 of the 1,637 chunks. So an SDK chunk in the top 10 of any of these
+30 questions is a surface confusion *by construction*, and Day 8 gets that
+failure category counted for free. Accepting this one chunk would make one SDK
+chunk a correct answer and force every future SDK hit to be adjudicated by hand.
+That trades a standing measurement for one alternative on one question.
+
+**Q15 already settled that surface is material**, when Claude Code hooks turned
+out to be shell commands and Agent SDK hooks callback functions. That these two
+surfaces happen to agree about tool blocking is a coincidence, not a principle.
+A rule of "cross-surface counts when the behavior coincides" has to be
+adjudicated per chunk and manufactures contested labels.
+
+**If a later version wants SDK coverage**, write SDK questions deliberately.
+Backfilling one SDK chunk into a CLI question is not coverage.
+
 Replaces the malformed "when to use edit mode". Draws on `permissions`, which had
 70 chunks and zero questions before this.
 
@@ -442,6 +486,18 @@ retriever must bridge summarised → compaction, which is the interesting part.
 **A hard case by construction.** 29 of `context-window`'s 66 chunks are the JSX
 source of an embedded visualization. This question tests whether the retriever
 finds one prose chunk among that noise.
+
+**Near miss, not gold: `doc-06:c035`.** Found by the D5a sweep, 2026-08-05. It
+says "Project-root CLAUDE.md survives compaction: after `/compact`, Claude
+re-reads it from disk and re-injects it into the session", which is this answer's
+first claim, and nothing about unscoped rules, auto memory, the system prompt or
+the output style. Not sufficient for the answer, so not an alternative under
+D5a/D5b. The chunk agrees: it closes by pointing at "What survives compaction",
+the section `doc-09:c061` comes from, for "the full breakdown".
+
+**Expect this at rank 1 or 2 on Day 8.** If it appears and scores as a miss, that
+is the D5 lower-bound effect, not a retrieval failure. The user would have been
+told yes, their project rules survive.
 
 **Retrieved top 10:**
 
@@ -731,6 +787,20 @@ Chunk says "Checkpointing only tracks", "Manual changes you make to files outsid
 of Claude Code". "outside" is shared but is not a rare term.
 
 Draws on `checkpointing`, which had 10 chunks and zero questions.
+
+**Near miss, not gold: `doc-05:c027`.** Found by the D5a sweep, 2026-08-05. It
+says "Checkpoints only track changes made through Claude's file editing tools.
+Changes made through Bash commands or external processes are not captured",
+which answers the question asked and carries this answer's first claim. It says
+nothing about symlinked or hard-linked paths, so it is not sufficient for the
+answer as written and is not an alternative under D5a/D5b.
+
+**This is the clearest case of the verbosity effect in the set.** Strip the
+symlink sentence from the gold answer and `doc-05:c027` becomes a clean
+alternative, which would take gold to 2 chunks and halve recall. The answer's
+length is doing labeling work, which is a property of the instrument. See D5b.
+Not fixed by trimming the answer, because trimming answers to admit alternatives
+is fitting the data to the rule.
 
 **Retrieved top 10:**
 
@@ -1244,6 +1314,18 @@ chunks could have qualified. This version names a specific moment (before
 automatic compaction) and has one chunk that lists exactly three actions, so the
 gold set is unambiguous.
 
+**Near miss, not gold: `doc-05:c024`.** Found by the D5a sweep, 2026-08-05. It
+carries two of the three limbs, "Use `/clear` frequently between tasks" and "run
+`/compact <instructions>`, like `/compact Focus on the API changes`", and not the
+third, delegating large reads to a subagent. Not sufficient for the answer, so
+not an alternative.
+
+**This question is why "primary claim" sufficiency was rejected.** The answer
+opens "Three things:" and the three limbs are co-equal, so there is no primary
+claim for a looser rule to be sufficient for. A standard that cannot be applied
+here cannot be applied uniformly, which is D5's own objection to contributory
+inclusion.
+
 **The dedicated page is still missing.** `costs#reduce-token-usage` is linked
 from the corpus and was never fetched. This question is answerable only because
 `context-window` restates the guidance.
@@ -1440,13 +1522,34 @@ touched. Rewriting a question to break a statistical correlation would be
 changing the instrument to suit the analysis, and the labels were wrong on their
 own terms regardless.
 
-**This raises a question the Day 5 re-read has not answered.** Q14 and Q26 were
-re-checked because they collided, and both turned out to be missing alternatives.
-Nothing suggests the collision caused the defect, so the other 22 answerable
-questions may carry the same one. Restating a fact on three pages is normal for
-these docs. A systematic D5a sweep, grepping each gold answer's key terms across
-the corpus with `show.py --find`, is the honest next step, and it will push
-recall down further wherever it finds something. Not yet done.
+**Systematic D5a sweep run 2026-08-05 with `src/sweep.py`. Yield: 1 addition,
+1 rejection, 3 documented near-misses.** Far less than predicted, and the
+prediction is worth keeping visible: after Q14 and Q26 both turned out
+under-labeled, the expectation was that many of the other 22 would be too.
+
+| Result | Question | Chunk |
+|---|---|---|
+| Added | Q04 | `doc-19:c008`, documents `--output-format json` in prose |
+| Rejected | Q07 | `doc-26:c023`, right behavior, Agent SDK surface. See D7 |
+| Near miss | Q09 | `doc-06:c035`, first claim only |
+| Near miss | Q16 | `doc-05:c027`, first claim only |
+| Near miss | Q29 | `doc-05:c024`, two limbs of three |
+
+**Coverage of the sweep itself, which is not 24 of 24.** The tool searches from
+the gold answer's identifiers, so it swept 14 questions and reported the other 10
+as unswept rather than clean: 5 whose answers contain no identifier at all, and 5
+whose only identifier is something the corpus says everywhere (`CLAUDE.md` is in
+108 chunks). Those 10 were probed by hand with phrases chosen per answer. A "no
+candidates" line from a check that could not have found anything is the failure
+this project already made once, on the leak check's first run.
+
+**Why the yield was low, and it is the interesting part.** All three confirmed
+D5a cases in the set (Q14, Q23, Q26) have single-claim answers. Every rejection
+in the sweep was a chunk carrying some but not all of a multi-claim answer. Under
+whole-answer sufficiency, alternatives essentially only arise for answers that
+make one claim, which means gold-set size is partly a function of how much
+elaboration the answer carries. Recorded in D5b with the caveat that the
+causation is not established.
 
 **Page coverage: 15 of 30.** Deliberate. The set reflects questions actually
 worth asking, not the shape of the corpus. Forcing 30/30 would mean writing

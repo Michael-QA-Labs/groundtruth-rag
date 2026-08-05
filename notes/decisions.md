@@ -288,6 +288,50 @@ claims the gold answers already make. It does not look for other ways to serve
 the user. That keeps it a bounded grep per question rather than a judgement
 against all 1,637 chunks, and it is what was actually done on Q14 and Q26.
 
+### D5b continued, 2026-08-05: sufficiency stays whole-answer, and what that costs
+
+The D5a sweep produced three chunks that support a gold answer's main claim and
+not its elaborations: `doc-06:c035` for Q09, `doc-05:c027` for Q16, `doc-05:c024`
+for Q29. Loosening sufficiency to "the primary claim" would admit all three.
+Rejected, for three reasons in descending order of weight.
+
+**D5's own header forbids it.** "Made 2026-08-01, before labeling any of the 25
+answerable questions. Deciding this *after* labeling would mean the rule got
+fitted to the labels." The standard is being questioned only because it is now
+known exactly which three chunks it excludes. Being able to name them is the
+disqualifying part.
+
+**D5 already priced this in.** Its cost section says strict labels understate
+recall, that an excluded chunk could still let a generator answer, and that "the
+recall numbers are a **lower bound**, not a point estimate". These three are not
+a discovery about the rule, they are three instances of an accepted cost.
+
+**"Primary claim" is undefined where it is most needed.** Q29's answer opens
+"Three things:" and lists three co-equal limbs. There is no primary claim, so the
+looser rule cannot be applied uniformly, which is D5's objection to contributory
+inclusion.
+
+**The real cost, recorded rather than fixed: answer length does labeling work.**
+An answer with one claim attracts alternatives; the same fact written with an
+extra clause attracts none, because no other chunk carries the whole thing. Q16
+is the clean example: delete its symlink sentence and `doc-05:c027` becomes an
+alternative, taking gold from 1 chunk to 2 and halving its recall.
+
+**How strong that effect is, honestly: unmeasured.** The four longest answers in
+the set all have exactly one gold chunk, and the three tersest all attracted
+alternatives, which looks like confirmation. But the causation plausibly runs the
+other way: a fact the corpus states in only one place forces a detailed answer
+*and* has no alternatives by nature, while a fact restated on three pages is
+usually simple enough to state in a line. At n=24 the data cannot separate those.
+Claim the mechanism, not a magnitude.
+
+**Consequence for Day 8, and this is the actionable part.** Gold-set size now
+ranges from 1 to 5 chunks, so the ceiling on recall@3 when one sufficient chunk
+is retrieved ranges from 1.00 down to 0.20. Day 8 says "look at your 5 worst
+questions and write down why they failed". Without a guard that list is a list of
+questions with many alternatives. **Read per-question recall next to `|gold|`,
+and treat MRR and first-relevant-rank as primary wherever `|gold| > 1`.**
+
 **One place the loose reading had already leaked in**, found by this review:
 Q30's rationale read "Alternatives under D5a: `doc-12:c002` names the bundled
 review skills, `doc-05:c032` gives the adversarial-subagent route. Either alone
@@ -359,6 +403,49 @@ vocabulary feels like yours whichever way it got there. The only way to separate
 **The script decides nothing.** Q02 is "how do i import a plugin" and its gold
 chunks are about installing plugins; of course they share the word. That is the
 question's subject, not borrowed phrasing. A flag is a reading assignment.
+
+---
+
+## D7: the seven Agent SDK pages carry zero gold, and that is now deliberate
+
+Observed during the D5a sweep on 2026-08-05, decided rather than left to chance.
+
+**The fact.** `agent-sdk/overview`, `python`, `custom-tools`,
+`structured-outputs`, `hooks`, `cost-tracking` and `sessions` are 7 of the 30
+pages and **363 of the 1,637 chunks, 22% of the corpus**. Not one gold chunk in
+the set comes from any of them. Nobody decided that. All 30 questions came from
+using the CLI, so all 30 labels landed on CLI pages.
+
+**Why it is worth keeping rather than correcting.** D2 dropped 6
+`platform.claude.com` pages that had been suggested specifically to create
+cross-source confusion, and noted as consolation that "`mcp` and
+`agent-sdk/hooks` vs `hooks` still overlap heavily within Claude Code, so
+near-duplicate confusion is available in-corpus". The SDK pages are this
+corpus's distractors, and they are good ones: they document permissions, hooks,
+sessions and tools in a parallel vocabulary that is right about a different
+product.
+
+**What it buys, and it is free.** With zero SDK gold, an SDK chunk in the top 10
+of any of these 30 questions is a surface confusion *by construction*. Day 8's
+failure taxonomy gets a countable category with no extra labeling, and the
+README gets a sentence about a retrieval hazard the corpus contains on purpose.
+
+**What it cost, once.** `doc-26:c023` states both of Q07's claims outright,
+better than most accepted alternatives, and was rejected for being about the
+SDK's `disallowedTools` rather than Claude Code's `permissions.deny`. That is the
+strongest candidate the sweep produced anywhere, and it was turned down to keep
+the property above. Recorded on the Q07 entry.
+
+**The line this draws.** A chunk on a different product surface is not an
+alternative under D5a even when the behavior coincides. Q15 already established
+that surface is material, when Claude Code hooks turned out to be shell commands
+and Agent SDK hooks callback functions. Coincidence of behavior is luck, and a
+rule that depends on it must be adjudicated chunk by chunk, which manufactures
+contested labels.
+
+**If a v2 wants SDK coverage**, write SDK questions on purpose and label them.
+Backfilling SDK chunks into CLI questions is not coverage, and it would spend
+this property to get there.
 
 ---
 
