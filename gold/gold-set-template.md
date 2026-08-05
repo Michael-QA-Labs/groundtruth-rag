@@ -1012,7 +1012,7 @@ source is absent — a Day 1 selection gap found on Day 4, not a retrieval fault
 
 ## Q24
 
-**Question:** how to pick up a previous session after restarting claude code after settings
+**Question:** How do i reinstate or resume a previous claude code session
 
 **Type:** procedural
 **Source:**
@@ -1033,13 +1033,43 @@ behavior, and the forking contrast in one place, so nothing else is necessary.
 has a trailing clause that does not parse. The resume intent is clear enough to
 label; flag it for a Day 5 cleanup.
 
-**AWAITING AN AUTHOR REWRITE, 2026-08-05.** Confirmed on the Day 5 review and
-deliberately left alone. The trailing "after settings" may have meant something
-specific about settings changes surviving a restart, which is a different
-question with a different answer, and guessing at it would put words in the
-author's mouth on one of the few questions where the intent is genuinely unclear.
-The gold answer and label are correct for the resume reading and do not depend on
-how the wording is fixed. **This is the last open item on the Day 5 re-read.**
+**REWRITTEN BY THE AUTHOR, 2026-08-05.** Was "how to pick up a previous session
+after restarting claude code after settings", whose trailing clause did not
+parse. Now "How do i reinstate or resume a previous claude code session".
+Wording only. **The gold chunk and gold answer are unchanged**, because the
+resume reading is what the old label already assumed and the new wording states
+it plainly.
+
+**"reinstate" appears on 0 of 30 pages.** The corpus never uses the word, so a
+lexical retriever gets nothing from it and a dense one has to bridge to "resume"
+on its own. That makes this one of the better retrieval tests in the set, and it
+came from the rewrite rather than from any deliberate design. "resume" is on 20
+of 30 pages, nowhere near rare, so nothing here is a vocabulary leak either way.
+
+**Two other completions were considered and rejected.**
+
+*"after closing my terminal"* would have kept the same label, but `doc-03:c010`
+never says a session survives closing a terminal. It ties sessions to
+directories and describes resume. Adding a clause the gold chunk does not
+support is the defect that killed Q07 ("edit mode", which does not exist) and
+Q12 ("unique", a claim the corpus never makes).
+
+*"after changing my settings"* was the tempting one and is the reason this note
+is long. It is answerable, `doc-07:c014` says Claude Code watches settings files
+and reloads them so "edits to most keys apply to the running session without a
+restart", and it would have added the `settings` page to a corpus coverage of 15
+of 30. It was rejected because it carries two defensible readings: "how do I
+resume" resolves to `doc-03:c010`, "do I even need to" resolves to
+`doc-07:c014`. Both are covered, so a labeler can argue either, and a contested
+label cannot be defended. That is the same reasoning that forced the rate-limit
+question to be reworded on Day 3.
+
+**Logged as a candidate replacement instead.** "do i need to restart claude code
+after changing my settings", gold `doc-07:c014`, answer "no, most keys reload
+into the running session". Determinate, adds page coverage, and the answer is
+counterintuitive enough to catch a retriever that pattern-matches "restart". It
+belongs in a deliberate swap in the Day 4 style, against a weaker question, not
+grafted onto this one.
 
 **Retrieved top 10:**
 
@@ -1330,7 +1360,7 @@ estimated.
 | Marked unanswerable | 5 | **6** — over target, see below |
 | Multi-hop (2+ gold chunks) | 3+ | **11** of 24 answerable |
 | Questions sharing 3+ rare words with their own gold chunk | 0 | **0** of 24, checked 2026-08-04 |
-| Questions rewritten | count | **7** |
+| Questions rewritten | count | **8**, being 7 on Day 4 and Q24's wording on Day 5 |
 | Questions whose gold label was revised | count | **6** |
 
 **Unanswerable is 6, not 5, and that is now the final count.** Q19 (RAG) is the
@@ -1365,6 +1395,7 @@ problems before the re-read pass could:
 | Q28 | two readings, only one covered |
 | Q25 | reworded to break a shared-chunk collision with Q26 |
 | Q29 | sharpened off the summary page onto `context-window` |
+| Q24 | Day 5. Trailing clause did not parse. Wording only, label unchanged |
 
 **The 6 revised labels** are Q08, Q14, Q18, Q21, Q22, Q30, all found by a
 verification pass that checked each gold answer's claims against the `text_raw`
