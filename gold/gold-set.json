@@ -1,0 +1,523 @@
+{
+  "corpus_sha256": "a887366bab9778b59129493073c38a116d55ff8e6657b191be1f9d5678473737",
+  "index": {
+    "n_chunks": 1637,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "embedding_dim": 384,
+    "token_limit": 254,
+    "vectors_sha256": "f0587a0e188318e00dcc811a453f45d9a5985ced426ab6c36483bdf5ef596f5f"
+  },
+  "source": "gold/gold-set-template.md",
+  "counts": {
+    "questions": 30,
+    "answerable": 24,
+    "unanswerable": 6,
+    "gold_chunks_total": 44,
+    "multi_chunk_answerable": 13,
+    "question_author": {
+      "author": 22,
+      "claude": 8
+    },
+    "answer_author": {
+      "author": 9,
+      "claude": 15,
+      "none": 6
+    }
+  },
+  "notes": {
+    "recall_undefined_when_unanswerable": "Unanswerable questions have no gold chunk, so recall and precision are undefined. Score them on abstention and exclude them from the means.",
+    "gold_is_a_set": "Where several chunks each independently support the gold answer they are alternatives under D5a and all are gold. Retrieving one of N scores 1/N on recall while fully serving the user, so read MRR and first-relevant-rank alongside recall wherever len(gold_chunks) > 1.",
+    "unanswerable_answer_author": "answer_author is 'none' for unanswerable questions because no gold answer exists. Their not_covered_because evidence was verified on Day 4."
+  },
+  "questions": [
+    {
+      "id": "Q01",
+      "question": "How do i set-up claude code in my CLI",
+      "type": "procedural",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-02:c005",
+        "doc-01:c001",
+        "doc-02:c001"
+      ],
+      "gold_docs": [
+        "doc-01",
+        "doc-02"
+      ],
+      "gold_answer": "You need a Claude account (Pro, Max, Team or Enterprise, or a Console account), then run the official install command for your OS in a terminal: `curl -fsSL https://claude.ai/install.sh | bash` on macOS, Linux or WSL.",
+      "not_covered_because": null,
+      "question_author": "author",
+      "answer_author": "author"
+    },
+    {
+      "id": "Q02",
+      "question": "How do i import a plugin",
+      "type": "procedural",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-05:c020",
+        "doc-12:c056",
+        "doc-16:c003"
+      ],
+      "gold_docs": [
+        "doc-05",
+        "doc-12",
+        "doc-16"
+      ],
+      "gold_answer": "Run `/plugin` to browse the marketplace, or install directly with `/plugin install <name>@<marketplace>`. After installing, run `/reload-plugins` to activate it in the current session.",
+      "not_covered_because": null,
+      "question_author": "author",
+      "answer_author": "author"
+    },
+    {
+      "id": "Q03",
+      "question": "Can claude code create a mcp",
+      "type": "procedural",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-16:c003"
+      ],
+      "gold_docs": [
+        "doc-16"
+      ],
+      "gold_answer": "Yes. Install the MCP server development plugin with `/plugin install mcp-server-dev@claude-plugins-official`, run `/reload-plugins`, then run `/mcp-server-dev:build-mcp-server`. Claude asks about your use case and scaffolds a remote HTTP or local stdio server.",
+      "not_covered_because": null,
+      "question_author": "author",
+      "answer_author": "author"
+    },
+    {
+      "id": "Q04",
+      "question": "How can i extract a json using claude code",
+      "type": "procedural",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-08:c000",
+        "doc-01:c011",
+        "doc-04:c016",
+        "doc-05:c028",
+        "doc-19:c008"
+      ],
+      "gold_docs": [
+        "doc-01",
+        "doc-04",
+        "doc-05",
+        "doc-08",
+        "doc-19"
+      ],
+      "gold_answer": "Pipe the content into non-interactive mode and ask for JSON: `cat file | claude -p \"extract the fields you want\" --output-format json`. Stdin and stdout behave like any Unix tool.",
+      "not_covered_because": null,
+      "question_author": "author",
+      "answer_author": "author"
+    },
+    {
+      "id": "Q05",
+      "question": "how do we use agents in claude code",
+      "type": "procedural",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-15:c059"
+      ],
+      "gold_docs": [
+        "doc-15"
+      ],
+      "gold_answer": "Three escalating styles: name the subagent in natural language and let Claude decide whether to delegate; `@`-mention it to guarantee it runs for one task; or make it session-wide with the `--agent` flag or the `agent` setting.",
+      "not_covered_because": null,
+      "question_author": "author",
+      "answer_author": "author"
+    },
+    {
+      "id": "Q06",
+      "question": "when to use auto mode in claude code",
+      "type": "configuration",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-05:c015",
+        "doc-05:c032"
+      ],
+      "gold_docs": [
+        "doc-05"
+      ],
+      "gold_answer": "Use auto mode when you trust the general direction of a task but don't want to click through every step. A separate classifier model reviews commands before they run and blocks scope escalation, unknown infrastructure and hostile-content-driven actions, letting routine work proceed without prompts.",
+      "not_covered_because": null,
+      "question_author": "author",
+      "answer_author": "claude"
+    },
+    {
+      "id": "Q07",
+      "question": "if i block a tool completely does claude still know it exists",
+      "type": "factual",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-10:c004"
+      ],
+      "gold_docs": [
+        "doc-10"
+      ],
+      "gold_answer": "No. A bare tool name in a deny rule, like `Bash`, removes the tool from Claude's context entirely, so Claude never sees it. A scoped rule like `Bash(rm *)` leaves the tool visible and blocks only matching calls when Claude attempts them.",
+      "not_covered_because": null,
+      "question_author": "claude",
+      "answer_author": "claude"
+    },
+    {
+      "id": "Q08",
+      "question": "when to use plan mode in claude code",
+      "type": "configuration",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-04:c015",
+        "doc-03:c018"
+      ],
+      "gold_docs": [
+        "doc-03",
+        "doc-04"
+      ],
+      "gold_answer": "Use plan mode when you want to review changes before they touch disk, or to separate research from coding on a complex problem. Claude reads files and proposes a plan but makes no edits until you approve. Enter it with `claude --permission-mode plan` or `Shift+Tab` twice.",
+      "not_covered_because": null,
+      "question_author": "author",
+      "answer_author": "claude"
+    },
+    {
+      "id": "Q09",
+      "question": "after a long chat gets summarised do my project rules stick around",
+      "type": "factual",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-09:c061"
+      ],
+      "gold_docs": [
+        "doc-09"
+      ],
+      "gold_answer": "Yes. Project-root CLAUDE.md, unscoped rules and auto memory are re-injected from disk after compaction. The system prompt and output style are unchanged because they were never part of message history.",
+      "not_covered_because": null,
+      "question_author": "claude",
+      "answer_author": "claude"
+    },
+    {
+      "id": "Q10",
+      "question": "what are the best practices when prompting in claude code",
+      "type": "factual",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-02:c011"
+      ],
+      "gold_docs": [
+        "doc-02"
+      ],
+      "gold_answer": "Be specific rather than vague: \"fix the login bug where users see a blank screen after entering wrong credentials\" instead of \"fix the bug\". Give step-by-step instructions for multi-part work.",
+      "not_covered_because": null,
+      "question_author": "author",
+      "answer_author": "claude"
+    },
+    {
+      "id": "Q11",
+      "question": "can task monitor tell if a background task will finish or loop forever?",
+      "type": "**Source:**",
+      "answerable": false,
+      "gold_chunks": [],
+      "gold_docs": [],
+      "gold_answer": null,
+      "not_covered_because": "Verified 2026-08-01 with `search.py --top 20`. Docs cover background tasks, `/tasks`, timeouts, auto-backgrounding and `--max-budget-usd`, but never completion prediction. Top hit `doc-17:c028` scores 0.558 and is on-topic without answering.",
+      "question_author": "author",
+      "answer_author": "none"
+    },
+    {
+      "id": "Q12",
+      "question": "what is already eating my context before i type anything",
+      "type": "factual",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-09:c060"
+      ],
+      "gold_docs": [
+        "doc-09"
+      ],
+      "gold_answer": "CLAUDE.md, auto memory, MCP tool names and skill descriptions all load into context before your first prompt. Setup-specific additions such as an output style or `--append-system-prompt` text go into the system prompt the same way.",
+      "not_covered_because": null,
+      "question_author": "claude",
+      "answer_author": "claude"
+    },
+    {
+      "id": "Q13",
+      "question": "at what token volume does max become cheaper than the api?",
+      "type": "**Source:**",
+      "answerable": false,
+      "gold_chunks": [],
+      "gold_docs": [],
+      "gold_answer": null,
+      "not_covered_because": "Verified 2026-08-01 with `search.py --top 20`. The corpus links to the pricing page but states no plan price anywhere. Top hits are `agent-sdk/cost-tracking`, which measures spend rather than comparing plans. No breakeven figure exists in the corpus.",
+      "question_author": "author",
+      "answer_author": "none"
+    },
+    {
+      "id": "Q14",
+      "question": "starting a project in claude code",
+      "type": "procedural",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-03:c016",
+        "doc-05:c010",
+        "doc-06:c006"
+      ],
+      "gold_docs": [
+        "doc-03",
+        "doc-05",
+        "doc-06"
+      ],
+      "gold_answer": "Run `/init`, which walks you through creating a CLAUDE.md for your project.",
+      "not_covered_because": null,
+      "question_author": "author",
+      "answer_author": "claude"
+    },
+    {
+      "id": "Q15",
+      "question": "what are hooks in claude code",
+      "type": "factual",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-14:c000",
+        "doc-14:c009"
+      ],
+      "gold_docs": [
+        "doc-14"
+      ],
+      "gold_answer": "Hooks are user-defined shell commands (also HTTP endpoints or LLM prompts) that Claude Code executes automatically at specific points in its lifecycle. They are defined in JSON settings files, keyed by hook event such as `PreToolUse` or `Stop`.",
+      "not_covered_because": null,
+      "question_author": "claude",
+      "answer_author": "author"
+    },
+    {
+      "id": "Q16",
+      "question": "does rewind undo edits i made by hand outside claude",
+      "type": "factual",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-11:c007"
+      ],
+      "gold_docs": [
+        "doc-11"
+      ],
+      "gold_answer": "No. Checkpointing only tracks files edited within the current session, so manual changes and edits from other concurrent sessions are not captured unless they touch the same files. Symlinked and hard-linked paths are also skipped on restore, with a `Restored the code, but skipped N files` warning.",
+      "not_covered_because": null,
+      "question_author": "claude",
+      "answer_author": "claude"
+    },
+    {
+      "id": "Q17",
+      "question": "how many tokens do i get in a 5-hour window on max?",
+      "type": "**Source:**",
+      "answerable": false,
+      "gold_chunks": [],
+      "gold_docs": [],
+      "gold_answer": null,
+      "not_covered_because": "Verified 2026-08-01 with `search.py --top 20` plus a corpus grep for dollar figures and quotas. `doc-25:c096` documents the `five_hour` rate limit type and a `utilization` fraction, but the underlying token allowance is never published.",
+      "question_author": "author",
+      "answer_author": "none"
+    },
+    {
+      "id": "Q18",
+      "question": "What is the function between a client MCP and server MCP",
+      "type": "comparison",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-16:c000",
+        "doc-16:c075",
+        "doc-16:c076"
+      ],
+      "gold_docs": [
+        "doc-16"
+      ],
+      "gold_answer": "Claude Code is normally an MCP **client**: it connects to MCP servers that expose tools to it. It can also run as an MCP **server** itself with `claude mcp serve`, communicating over stdin and stdout so another client, such as Claude Desktop, can use Claude Code's own tools (View, Edit, LS).",
+      "not_covered_because": null,
+      "question_author": "author",
+      "answer_author": "claude"
+    },
+    {
+      "id": "Q19",
+      "question": "how do we use RAG in claude code",
+      "type": "**Source:**",
+      "answerable": false,
+      "gold_chunks": [],
+      "gold_docs": [],
+      "gold_answer": null,
+      "not_covered_because": "Verified 2026-08-01. A word-boundary regex for `RAG`",
+      "question_author": "author",
+      "answer_author": "none"
+    },
+    {
+      "id": "Q20",
+      "question": "is claude code dropping the ide extensions?",
+      "type": "**Source:**",
+      "answerable": false,
+      "gold_chunks": [],
+      "gold_docs": [],
+      "gold_answer": null,
+      "not_covered_because": "Verified 2026-08-01 with `search.py --top 20` plus a grep for roadmap/deprecated/sunset across all 30 docs: zero hits. The docs confirm IDE extensions exist and that `autoInstallIdeExtension` defaults to true. Nothing states future direction.",
+      "question_author": "author",
+      "answer_author": "none"
+    },
+    {
+      "id": "Q21",
+      "question": "how do we create a skill for the agent",
+      "type": "procedural",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-12:c006"
+      ],
+      "gold_docs": [
+        "doc-12"
+      ],
+      "gold_answer": "Make a directory for the skill, for example `mkdir -p ~/.claude/skills/summarize-changes`, then write a `SKILL.md` inside it with two parts: YAML frontmatter between `---` markers containing a `description` that tells Claude when to use the skill, and markdown content with the instructions Claude follows. The directory name becomes the command you type.",
+      "not_covered_because": null,
+      "question_author": "author",
+      "answer_author": "claude"
+    },
+    {
+      "id": "Q22",
+      "question": "how do we check for token usage",
+      "type": "procedural",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-03:c011",
+        "doc-03:c013"
+      ],
+      "gold_docs": [
+        "doc-03"
+      ],
+      "gold_answer": "Run `/context` to see what is using space in the context window.",
+      "not_covered_because": null,
+      "question_author": "author",
+      "answer_author": "claude"
+    },
+    {
+      "id": "Q23",
+      "question": "how do we switch between models in the cli",
+      "type": "procedural",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-03:c002",
+        "doc-07:c015"
+      ],
+      "gold_docs": [
+        "doc-03",
+        "doc-07"
+      ],
+      "gold_answer": "Use the `/model` command to switch models mid-session.",
+      "not_covered_because": null,
+      "question_author": "author",
+      "answer_author": "author"
+    },
+    {
+      "id": "Q24",
+      "question": "How do i reinstate or resume a previous claude code session",
+      "type": "procedural",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-03:c010"
+      ],
+      "gold_docs": [
+        "doc-03"
+      ],
+      "gold_answer": "Reopen it with `claude --continue` or `claude --resume`, which restore the session under the same session ID and append to the existing conversation. `--fork-session` or `/branch` copies the history into a new session instead.",
+      "not_covered_because": null,
+      "question_author": "author",
+      "answer_author": "claude"
+    },
+    {
+      "id": "Q25",
+      "question": "how do i stop repeating the same setup instructions to claude every time",
+      "type": "procedural",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-06:c001",
+        "doc-06:c003"
+      ],
+      "gold_docs": [
+        "doc-06"
+      ],
+      "gold_answer": "Put them in a CLAUDE.md. Claude Code has two complementary memory systems, both loaded at the start of every session. Keep CLAUDE.md to facts Claude should hold every time: build commands, conventions and project structure.",
+      "not_covered_because": null,
+      "question_author": "claude",
+      "answer_author": "author"
+    },
+    {
+      "id": "Q26",
+      "question": "how do we scan for the health of claude's environment",
+      "type": "procedural",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-03:c016",
+        "doc-08:c006"
+      ],
+      "gold_docs": [
+        "doc-03",
+        "doc-08"
+      ],
+      "gold_answer": "Run `/doctor`, which performs a setup checkup that diagnoses installation and configuration problems and can fix them. From the terminal without starting a session, `claude doctor` prints the same diagnostics read-only.",
+      "not_covered_because": null,
+      "question_author": "author",
+      "answer_author": "claude"
+    },
+    {
+      "id": "Q27",
+      "question": "who is liable if claude writes a security bug that leaks data?",
+      "type": "**Source:**",
+      "answerable": false,
+      "gold_chunks": [],
+      "gold_docs": [],
+      "gold_answer": null,
+      "not_covered_because": "Verified 2026-08-01 with `search.py --top 20` plus a grep for liability/indemnify/warranty/'at your own risk'/'you are responsible': zero hits. The corpus is purely technical. Top hits are hooks and permissions chunks about controlling access, not accountability.",
+      "question_author": "author",
+      "answer_author": "none"
+    },
+    {
+      "id": "Q28",
+      "question": "how far back can i rewind and does it survive a restart",
+      "type": "factual",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-11:c001"
+      ],
+      "gold_docs": [
+        "doc-11"
+      ],
+      "gold_answer": "Every prompt creates a checkpoint and Claude Code keeps file snapshots for the 100 most recent in a session. Checkpoints are saved with the conversation, so `/rewind` still works after you resume. They are deleted along with sessions after 30 days, configurable via `cleanupPeriodDays`.",
+      "not_covered_because": null,
+      "question_author": "claude",
+      "answer_author": "claude"
+    },
+    {
+      "id": "Q29",
+      "question": "what can i do before a long session summarises itself",
+      "type": "procedural",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-09:c063"
+      ],
+      "gold_docs": [
+        "doc-09"
+      ],
+      "gold_answer": "Three things: run `/compact` with a focus, like `/compact focus on the auth bug fix`, so the summary keeps what you choose rather than what the automatic pass guesses; run `/clear` when switching to unrelated work; and delegate large reads to a subagent so file contents stay in its context window rather than yours.",
+      "not_covered_because": null,
+      "question_author": "claude",
+      "answer_author": "author"
+    },
+    {
+      "id": "Q30",
+      "question": "what can i use to make sure that code being written is safe and bug free?",
+      "type": "procedural",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-12:c002",
+        "doc-05:c032"
+      ],
+      "gold_docs": [
+        "doc-05",
+        "doc-12"
+      ],
+      "gold_answer": "Use the bundled `/code-review` and `/verify` skills, which run only when you invoke them. You can also add an adversarial review step: have a subagent review the diff in a fresh context and report gaps before treating the task as done.",
+      "not_covered_because": null,
+      "question_author": "author",
+      "answer_author": "claude"
+    }
+  ]
+}

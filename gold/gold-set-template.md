@@ -107,6 +107,7 @@ it" would have hidden that. This is why gold is a set.
 **Type:** procedural
 **Source:**
 **Answerable:** yes
+**Authorship:** question=author, answer=author
 **Gold chunks:** `doc-02:c005`, `doc-01:c001`, `doc-02:c001`
 **Gold answer:** You need a Claude account (Pro, Max, Team or Enterprise, or a
 Console account), then run the official install command for your OS in a
@@ -146,6 +147,7 @@ existing three do not.
 **Type:** procedural
 **Source:**
 **Answerable:** yes
+**Authorship:** question=author, answer=author
 **Gold chunks:** `doc-05:c020`, `doc-12:c056`, `doc-16:c003`
 **Gold answer:** Run `/plugin` to browse the marketplace, or install directly
 with `/plugin install <name>@<marketplace>`. After installing, run
@@ -185,6 +187,7 @@ no chunk describes it, so the gold answer states the command instead.
 **Type:** procedural
 **Source:**
 **Answerable:** yes
+**Authorship:** question=author, answer=author
 **Gold chunks:** `doc-16:c003`
 **Gold answer:** Yes. Install the MCP server development plugin with
 `/plugin install mcp-server-dev@claude-plugins-official`, run `/reload-plugins`,
@@ -224,6 +227,7 @@ the corpus, not an answer inside it, and the gold answer does not depend on it.
 **Type:** procedural
 **Source:**
 **Answerable:** yes
+**Authorship:** question=author, answer=author
 **Gold chunks:** `doc-08:c000`, `doc-01:c011`, `doc-04:c016`, `doc-05:c028`, `doc-19:c008`
 **Gold answer:** Pipe the content into non-interactive mode and ask for JSON:
 `cat file | claude -p "extract the fields you want" --output-format json`. Stdin
@@ -285,6 +289,7 @@ document the flag the answer depends on.
 **Type:** procedural
 **Source:**
 **Answerable:** yes
+**Authorship:** question=author, answer=author
 **Gold chunks:** `doc-15:c059`
 **Gold answer:** Three escalating styles: name the subagent in natural language
 and let Claude decide whether to delegate; `@`-mention it to guarantee it runs
@@ -327,6 +332,7 @@ both fail the delete test because nothing in the gold answer needs them.
 **Type:** configuration
 **Source:**
 **Answerable:** yes
+**Authorship:** question=author, answer=claude
 **Gold chunks:** `doc-05:c015`, `doc-05:c032`
 **Gold answer:** Use auto mode when you trust the general direction of a task but
 don't want to click through every step. A separate classifier model reviews
@@ -363,6 +369,7 @@ it. See the Day 4 corpus-gap note at the end of this file.
 **Type:** factual
 **Source:** Replaced 2026-08-01. Original asked about a nonexistent "edit mode".
 **Answerable:** yes
+**Authorship:** question=claude, answer=claude
 **Gold chunks:** `doc-10:c004`
 **Gold answer:** No. A bare tool name in a deny rule, like `Bash`, removes the
 tool from Claude's context entirely, so Claude never sees it. A scoped rule like
@@ -427,6 +434,7 @@ Replaces the malformed "when to use edit mode". Draws on `permissions`, which ha
 **Type:** configuration
 **Source:**
 **Answerable:** yes
+**Authorship:** question=author, answer=claude
 **Gold chunks:** `doc-04:c015`, `doc-03:c018`
 **Gold answer:** Use plan mode when you want to review changes before they touch
 disk, or to separate research from coding on a complex problem. Claude reads
@@ -471,6 +479,7 @@ Same `permission-modes` corpus gap as Q06.
 **Type:** factual
 **Source:** Replaced 2026-08-01. Original had no documented referent.
 **Answerable:** yes
+**Authorship:** question=claude, answer=claude
 **Gold chunks:** `doc-09:c061`
 **Gold answer:** Yes. Project-root CLAUDE.md, unscoped rules and auto memory are
 re-injected from disk after compaction. The system prompt and output style are
@@ -517,6 +526,7 @@ told yes, their project rules survive.
 **Type:** factual
 **Source:**
 **Answerable:** yes
+**Authorship:** question=author, answer=claude
 **Gold chunks:** `doc-02:c011`
 **Gold answer:** Be specific rather than vague: "fix the login bug where users
 see a blank screen after entering wrong credentials" instead of "fix the bug".
@@ -576,6 +586,7 @@ its own breadth is a fact about this gold set that the README should carry.
 **Type:**
 **Source:**
 **Answerable:** no
+**Authorship:** question=author, answer=none
 **Gold chunks:** none
 **Gold answer:**
 **Not covered because:** Verified 2026-08-01 with `search.py --top 20`. Docs cover background tasks, `/tasks`, timeouts, auto-backgrounding and `--max-budget-usd`, but never completion prediction. Top hit `doc-17:c028` scores 0.558 and is on-topic without answering.
@@ -599,6 +610,7 @@ its own breadth is a fact about this gold set that the README should carry.
 **Source:** Replaced 2026-08-01. Original turned on "unique", which the corpus
 never claims about anything.
 **Answerable:** yes
+**Authorship:** question=claude, answer=claude
 **Gold chunks:** `doc-09:c060`
 **Gold answer:** CLAUDE.md, auto memory, MCP tool names and skill descriptions
 all load into context before your first prompt. Setup-specific additions such as
@@ -633,6 +645,7 @@ at startup" to remove even that overlap.
 **Type:**
 **Source:**
 **Answerable:** no
+**Authorship:** question=author, answer=none
 **Gold chunks:** none
 **Gold answer:**
 **Not covered because:** Verified 2026-08-01 with `search.py --top 20`. The corpus links to the pricing page but states no plan price anywhere. Top hits are `agent-sdk/cost-tracking`, which measures spend rather than comparing plans. No breakeven figure exists in the corpus.
@@ -655,6 +668,7 @@ at startup" to remove even that overlap.
 **Type:** procedural
 **Source:**
 **Answerable:** yes
+**Authorship:** question=author, answer=claude
 **Gold chunks:** `doc-03:c016`, `doc-05:c010`, `doc-06:c006`
 **Gold answer:** Run `/init`, which walks you through creating a CLAUDE.md for
 your project.
@@ -725,6 +739,7 @@ would be adjusting the instrument to suit the analysis.
 **Source:** Rewritten 2026-08-01 during labeling. Original was "What are hooks?",
 which the corpus answers two incompatible ways. See `private/findings.md`.
 **Answerable:** yes
+**Authorship:** question=claude, answer=author
 **Gold chunks:** `doc-14:c000`, `doc-14:c009`
 **Gold answer:** Hooks are user-defined shell commands (also HTTP endpoints or
 LLM prompts) that Claude Code executes automatically at specific points in its
@@ -773,6 +788,7 @@ Applying D5's delete test to the three near-misses:
 **Source:** Replaced 2026-08-01. Original said "tools", which spans three
 product surfaces with disjoint answers.
 **Answerable:** yes
+**Authorship:** question=claude, answer=claude
 **Gold chunks:** `doc-11:c007`
 **Gold answer:** No. Checkpointing only tracks files edited within the current
 session, so manual changes and edits from other concurrent sessions are not
@@ -820,6 +836,7 @@ is fitting the data to the rule.
 **Type:**
 **Source:**
 **Answerable:** no
+**Authorship:** question=author, answer=none
 **Gold chunks:** none
 **Gold answer:**
 **Not covered because:** Verified 2026-08-01 with `search.py --top 20` plus a corpus grep for dollar figures and quotas. `doc-25:c096` documents the `five_hour` rate limit type and a `utilization` fraction, but the underlying token allowance is never published.
@@ -842,6 +859,7 @@ is fitting the data to the rule.
 **Type:** comparison
 **Source:**
 **Answerable:** yes
+**Authorship:** question=author, answer=claude
 **Gold chunks:** `doc-16:c000`, `doc-16:c075`, `doc-16:c076`
 **Gold answer:** Claude Code is normally an MCP **client**: it connects to MCP
 servers that expose tools to it. It can also run as an MCP **server** itself with
@@ -888,6 +906,7 @@ the intent is unambiguous, so it is labeled rather than flagged.
 **Type:**
 **Source:**
 **Answerable:** no
+**Authorship:** question=author, answer=none
 **Gold chunks:** none
 **Gold answer:**
 **Not covered because:** Verified 2026-08-01. A word-boundary regex for `RAG`
@@ -939,6 +958,7 @@ the Averages block below, which had been written expecting 25 and 5.
 **Type:**
 **Source:**
 **Answerable:** no
+**Authorship:** question=author, answer=none
 **Gold chunks:** none
 **Gold answer:**
 **Not covered because:** Verified 2026-08-01 with `search.py --top 20` plus a grep for roadmap/deprecated/sunset across all 30 docs: zero hits. The docs confirm IDE extensions exist and that `autoInstallIdeExtension` defaults to true. Nothing states future direction.
@@ -961,6 +981,7 @@ the Averages block below, which had been written expecting 25 and 5.
 **Type:** procedural
 **Source:**
 **Answerable:** yes
+**Authorship:** question=author, answer=claude
 **Gold chunks:** `doc-12:c006`
 **Gold answer:** Make a directory for the skill, for example
 `mkdir -p ~/.claude/skills/summarize-changes`, then write a `SKILL.md` inside it
@@ -1007,6 +1028,7 @@ quotes neither, and `c006` alone supports every claim it makes.
 **Type:** procedural
 **Source:**
 **Answerable:** yes
+**Authorship:** question=author, answer=claude
 **Gold chunks:** `doc-03:c011`, `doc-03:c013`
 **Gold answer:** Run `/context` to see what is using space in the context window.
 **Not covered because:** n/a
@@ -1046,6 +1068,7 @@ reduction side. If the author meant cost, this needs relabeling.
 **Type:** procedural
 **Source:**
 **Answerable:** yes
+**Authorship:** question=author, answer=author
 **Gold chunks:** `doc-03:c002`, `doc-07:c015`
 **Gold answer:** Use the `/model` command to switch models mid-session.
 **Not covered because:** n/a
@@ -1087,6 +1110,7 @@ source is absent — a Day 1 selection gap found on Day 4, not a retrieval fault
 **Type:** procedural
 **Source:**
 **Answerable:** yes
+**Authorship:** question=author, answer=claude
 **Gold chunks:** `doc-03:c010`
 **Gold answer:** Reopen it with `claude --continue` or `claude --resume`, which
 restore the session under the same session ID and append to the existing
@@ -1159,6 +1183,7 @@ grafted onto this one.
 **Type:** procedural
 **Source:** Reworded 2026-08-01 to reduce the `doc-03` concentration.
 **Answerable:** yes
+**Authorship:** question=claude, answer=author
 **Gold chunks:** `doc-06:c001`, `doc-06:c003`
 **Gold answer:** Put them in a CLAUDE.md. Claude Code has two complementary
 memory systems, both loaded at the start of every session. Keep CLAUDE.md to
@@ -1194,6 +1219,7 @@ Moves this question off the `how-claude-code-works` summary page and onto
 **Type:** procedural
 **Source:**
 **Answerable:** yes
+**Authorship:** question=author, answer=claude
 **Gold chunks:** `doc-03:c016`, `doc-08:c006`
 **Gold answer:** Run `/doctor`, which performs a setup checkup that diagnoses
 installation and configuration problems and can fix them. From the terminal
@@ -1244,6 +1270,7 @@ correlation note in the Tally.
 **Type:**
 **Source:**
 **Answerable:** no
+**Authorship:** question=author, answer=none
 **Gold chunks:** none
 **Gold answer:**
 **Not covered because:** Verified 2026-08-01 with `search.py --top 20` plus a grep for liability/indemnify/warranty/'at your own risk'/'you are responsible': zero hits. The corpus is purely technical. Top hits are hooks and permissions chunks about controlling access, not accountability.
@@ -1266,6 +1293,7 @@ correlation note in the Tally.
 **Type:** factual
 **Source:** Replaced 2026-08-01. Original had two readings, only one covered.
 **Answerable:** yes
+**Authorship:** question=claude, answer=claude
 **Gold chunks:** `doc-11:c001`
 **Gold answer:** Every prompt creates a checkpoint and Claude Code keeps file
 snapshots for the 100 most recent in a session. Checkpoints are saved with the
@@ -1298,6 +1326,7 @@ days". The numbers that make the answer correct appear nowhere in the question.
 **Source:** Sharpened 2026-08-01. Original ("strategies to keep token usages
 low") was broad and resolved to the summary page.
 **Answerable:** yes
+**Authorship:** question=claude, answer=author
 **Gold chunks:** `doc-09:c063`
 **Gold answer:** Three things: run `/compact` with a focus, like
 `/compact focus on the auth bug fix`, so the summary keeps what you choose rather
@@ -1348,6 +1377,7 @@ from the corpus and was never fetched. This question is answerable only because
 **Type:** procedural
 **Source:**
 **Answerable:** yes
+**Authorship:** question=author, answer=claude
 **Gold chunks:** `doc-12:c002`, `doc-05:c032`
 **Gold answer:** Use the bundled `/code-review` and `/verify` skills, which run
 only when you invoke them. You can also add an adversarial review step: have a
@@ -1442,7 +1472,7 @@ estimated.
 | Marked unanswerable | 5 | **6** — over target, see below |
 | Multi-hop (2+ gold chunks) | 3+ | **11** of 24 answerable |
 | Questions sharing 3+ rare words with their own gold chunk | 0 | **0** of 24, checked 2026-08-04 |
-| Questions rewritten | count | **8**, being 7 on Day 4 and Q24's wording on Day 5 |
+| Questions rewritten | count | **9**, being 8 by Claude on Day 4 and Q24 by the author on Day 5 |
 | Questions whose gold label was revised | count | **6** |
 
 **Unanswerable is 6, not 5, and that is now the final count.** Q19 (RAG) is the
@@ -1477,6 +1507,7 @@ problems before the re-read pass could:
 | Q28 | two readings, only one covered |
 | Q25 | reworded to break a shared-chunk collision with Q26 |
 | Q29 | sharpened off the summary page onto `context-window` |
+| Q15 | rewritten during labeling; "hooks" spans Claude Code and the Agent SDK |
 | Q24 | Day 5. Trailing clause did not parse. Wording only, label unchanged |
 
 **The 6 revised labels** are Q08, Q14, Q18, Q21, Q22, Q30, all found by a
@@ -1484,11 +1515,33 @@ verification pass that checked each gold answer's claims against the `text_raw`
 of every chunk it cited. That is a **25% defect rate** on 24 first-pass labels.
 Details per entry and in `private/findings.md`.
 
-**Day 5 authorship review, 2026-08-05: all 17 answerable Claude-drafted answers
-verify, 0 further defects.** 23 of the 30 gold answers were drafted by Claude and
-say so inline; 17 of those are answerable and therefore have claims to check.
-Every claim traces to a cited chunk, most near-verbatim. Q21 and Q30, the two
-carried as lower-confidence since Day 4, are both sound and that flag is cleared.
+**Day 5 authorship review, 2026-08-05: all 17 answerable non-author answers
+verify, 0 further defects.** Every claim traces to a cited chunk, most
+near-verbatim. Q21 and Q30, the two carried as lower-confidence since Day 4, are
+both sound and that flag is cleared.
+
+**The authorship counts were wrong in three places until 2026-08-05, and the
+cause was that authorship lived in prose.** The figure "23 of 30 drafted by
+Claude" came from 30 minus the author's 7, which counts the six unanswerable
+entries as Claude-drafted gold answers when they have no gold answer at all.
+There are 24 gold answers, not 30. A restatement of the same error was written
+into this section on 2026-08-04.
+
+Every entry now carries a structured `**Authorship:**` field, so the counts are
+parsed rather than recounted by hand:
+
+| | Author | Claude | None |
+|---|---:|---:|---:|
+| Question | 22 | 8 | |
+| Gold answer | 9 | 15 | 6 (unanswerable, no answer exists) |
+
+**Author-written answers:** Q01-Q05, Q15, Q23, Q25, Q29. Q25 and Q29 carried no
+answer-authorship record at all, only a note that Claude reworded the *question*
+on Day 4; confirmed by the author on 2026-08-05.
+
+**Claude-rewritten questions:** Q07, Q09, Q12, Q15, Q16, Q25, Q28, Q29. Q15
+belongs in that list and was missing from the rewrite table below, which is the
+third count this field fixes.
 
 A second pass finding nothing is weak evidence on its own, since both passes were
 run the same way by the same kind of reader. What it does establish is that the
