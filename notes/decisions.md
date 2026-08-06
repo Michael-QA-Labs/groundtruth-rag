@@ -449,6 +449,44 @@ this property to get there.
 
 ---
 
+## D8: an unanswerable question returns None; a missed answer returns 0.0
+
+Decided while writing `src/metrics.py` on 2026-08-06.
+
+**The two cases that look identical in a results table.** Q11 has no gold chunk,
+so recall@10 is 0/0. Q02 has three gold chunks and none of them is in the top
+10, so recall@10 is 0/3. Both print as an empty-looking cell and both are
+tempting to store as 0.0. They are not the same number and they must not be
+averaged together.
+
+**The rule.** `recall_at_k`, `precision_at_k` and `reciprocal_rank` return
+`None` when the gold set is empty, and a real 0.0 when the gold set is
+non-empty and nothing was retrieved. `first_relevant_rank` returns `None` for
+both, which is correct: there is no rank either way, and `hand-computed.md`
+already writes "blank if none" for both.
+
+**What it costs if you get it backwards.** The 6 unanswerable questions are 20%
+of the set. Folding them in as zeros would drag the reported mean down by a
+fifth on questions that cannot be failed, and the resulting number would
+describe neither the retriever nor the corpus. The inverse error is worse:
+dropping the genuine 0.0 misses would average only over the questions that
+worked, and with 12 of 24 answerable questions returning no gold in the top 10,
+that would roughly double the headline recall. The honest zeros are the finding.
+
+**Day 8 owns the aggregation.** `metrics.py` scores one question and never
+averages, so the decision about what to do with the `None`s is made once, in
+one place, by the code that reports the mean. The denominators to report
+alongside it are 24 answerable and 6 unanswerable, per the Q19 ruling on Day 5.
+
+**Related: precision's denominator is k, not |gold|.** A question with one gold
+chunk retrieved at rank 1 scores precision@3 = 1/3, which is that question's
+maximum and reads like a failure in a table. Reported against |gold|, precision
+would just be recall computed twice. This is the same shape of problem D5b
+describes for recall's moving ceiling, and it is handled the same way: report
+`|gold|` next to the number.
+
+---
+
 ## Housekeeping
 
 `~/corpus/` holds the first (28 Jul) fetch — slug-named files under `pages/`,
