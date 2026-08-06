@@ -4,10 +4,12 @@ A retrieval system over technical documentation, plus the evaluation harness
 that measures whether it works. The retriever is simple on purpose. The
 measurement is the part I care about.
 
-**Status: retrieval runs end to end, the gold set is labeled and audited,
-metrics are next.** The corpus is frozen, the index is built, 46 tests pass.
-There are still no retrieval metrics in this README. That is because computing
-them is the next step, not because they came out badly.
+**Status: baseline measured, and it is weak.** Mean recall@10 is **0.362** over
+the 24 answerable questions, and **12 of those 24 return no gold chunk in the
+top 10 at all**. The corpus is frozen, the index is built, 138 tests pass. The
+retriever is a single dense vector search chosen to be beatable, so those
+numbers are the starting line rather than a result. Five of the failures are
+diagnosed chunk by chunk in [`notes/failures.md`](./notes/failures.md).
 
 ## What exists today
 
@@ -19,7 +21,8 @@ them is the next step, not because they came out badly.
 | Search | done | cosine top-k over the full index |
 | Gold set | labeled | 30 questions, 24 answerable, 6 unanswerable. Every label audited, 6 of 24 revised |
 | Metrics | done | recall@k, precision@k, MRR, first relevant rank. 37 tests, 4 injected wrong implementations caught |
-| Baseline + hybrid | not started | BM25 with reciprocal rank fusion, same questions |
+| Baseline | done | mean recall@10 0.362 over 24 answerable questions; 12 of 24 return no gold chunk in the top 10 |
+| Hybrid | not started | BM25 with reciprocal rank fusion, same questions |
 | Confidence intervals | not started | bootstrap CI on the paired per-question difference |
 
 Gold labels are chunk IDs plus a written answer, and every entry carries its
@@ -29,8 +32,9 @@ reasoning and the candidates it rejected. See
 ```
 corpus/     30 frozen doc pages + INDEX.md with per-page sha256
 src/        tokens · mdx · tables · chunk · embed · search · show
+            leakage · run_retrieval · metrics · report
 index/      chunks.jsonl + manifest.json (pins model, versions, corpus hash)
-tests/      46 tests
+tests/      138 tests
 notes/      decisions and chunk inspection
 docs/       design writeups
 gold/       30 labeled questions, reasoning and rejected candidates per entry
@@ -168,7 +172,7 @@ Full reasoning is in [`notes/decisions.md`](./notes/decisions.md) and
 python3.13 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 
-.venv/bin/python -m pytest -q                              # 46 tests
+.venv/bin/python -m pytest -q                              # 138 tests
 .venv/bin/python src/embed.py                              # rebuild index/vectors.npz
 .venv/bin/python src/search.py "how do I stop the permission prompt?" --top 10 --show-text
 

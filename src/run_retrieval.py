@@ -51,6 +51,20 @@ DEFAULT_OUT = ROOT / "results" / "retrieval-baseline.json"
 DEFAULT_TOP = 20
 
 
+def display_path(path: Path) -> str:
+    """Repo-relative when it can be, absolute when it cannot.
+
+    `--out /tmp/full-depth.json` is a real use: Day 8 needed the full 1,637-deep
+    ranking to see how far past 20 each gold chunk sits, and that scratch file
+    does not belong in results/. Path.relative_to raises rather than falling
+    back, so the run wrote the file and then died on its own success message.
+    """
+    try:
+        return str(path.relative_to(ROOT))
+    except ValueError:
+        return str(path)
+
+
 def rank(scores: np.ndarray, top: int) -> np.ndarray:
     """Indices of the highest `top` scores, ties broken deterministically.
 
@@ -132,7 +146,7 @@ def main() -> None:
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
-    print(f"wrote {args.out.relative_to(ROOT)}: {len(results)} questions, "
+    print(f"wrote {display_path(args.out)}: {len(results)} questions, "
           f"top {args.top}, model {manifest['model']}")
 
 

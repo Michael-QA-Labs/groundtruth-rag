@@ -110,3 +110,16 @@ def test_no_metrics_are_stored(results):
     blob = json.dumps(results).lower()
     for word in ("recall", "precision", "mrr", "reciprocal"):
         assert word not in blob, f"{word} appears in the results file"
+
+
+def test_display_path_survives_an_output_outside_the_repo():
+    """Day 8 ran `--top 1637 --out /tmp/full-depth.json` to find how deep each
+    gold chunk really sits, and the run wrote the file and then crashed on the
+    success message: Path.relative_to raises for a path outside ROOT. The
+    ranks in notes/failures.md come from that command, so it has to complete."""
+    assert run_retrieval.display_path(Path("/tmp/full-depth.json")) == "/tmp/full-depth.json"
+
+
+def test_display_path_stays_relative_inside_the_repo():
+    inside = run_retrieval.ROOT / "results" / "retrieval-baseline.json"
+    assert run_retrieval.display_path(inside) == "results/retrieval-baseline.json"
