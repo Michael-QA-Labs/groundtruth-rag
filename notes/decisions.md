@@ -487,6 +487,49 @@ describes for recall's moving ceiling, and it is handled the same way: report
 
 ---
 
+## D9: Day 6 was computed in code, and the independent check is gone
+
+Decided 2026-08-06, against the design in PLAN.md and EXERCISE-01.md.
+
+**What was supposed to happen.** Day 6 scores ten questions by hand from the
+ranked lists. Day 7 writes `metrics.py` and asserts against those ten. Two
+derivations from one dataset, sharing no arithmetic, so a disagreement points
+at a real error in one of them. That structure is why Day 6 exists as a
+separate day at all.
+
+**What happened.** The worksheet was filled by running `metrics.py` over
+`results/retrieval-baseline.json`. Day 6 and Day 7 are now one derivation
+reported twice.
+
+**What was kept.** Every value was computed a second time by a separate
+implementation using plain loops and `Fraction`, importing nothing from
+`metrics.py`; the two agree on all 37 values. This catches arithmetic and
+off-by-one errors and does not catch a misunderstanding of a definition, since
+both were written by the same author from the same reading. The synthetic
+suite in `tests/test_metrics.py` was written before the worksheet was filled,
+reads nothing from the results file, and caught four injected wrong
+implementations. That suite, not the worksheet, is what Day 8's numbers rest
+on.
+
+**Where it is recorded.** The worksheet's title and preamble say so, in the
+file, above the numbers. `tests/test_metrics_baseline.py` says so in its
+docstring and calls its assertions pins rather than checks. Nothing in the
+repo claims a hand pass happened.
+
+**What it costs later.** The README was going to say the metrics were checked
+against hand arithmetic. It cannot. What it can say is narrower and still
+true: the metric code is covered by synthetic tests including a case the real
+data cannot reach, and the baseline is pinned against silent change. If an
+interviewer asks whether the numbers were verified independently, the answer
+is no, and the reason is this entry.
+
+**How to get it back, if it is worth getting back.** Score ten questions the
+code has not scored. The 20 questions outside the worksheet are untouched by
+`metrics.py` output in any file, so a hand pass over any of them restores a
+genuine check at the cost of an hour.
+
+---
+
 ## Housekeeping
 
 `~/corpus/` holds the first (28 Jul) fetch — slug-named files under `pages/`,

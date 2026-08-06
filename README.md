@@ -18,7 +18,7 @@ them is the next step, not because they came out badly.
 | Embedding | done | `all-MiniLM-L6-v2`, 384-dim, L2-normalised |
 | Search | done | cosine top-k over the full index |
 | Gold set | labeled | 30 questions, 24 answerable, 6 unanswerable. Every label audited, 6 of 24 revised |
-| Metrics | not started | recall@k, precision@k, MRR. By hand first, then in code |
+| Metrics | done | recall@k, precision@k, MRR, first relevant rank. 37 tests, 4 injected wrong implementations caught |
 | Baseline + hybrid | not started | BM25 with reciprocal rank fusion, same questions |
 | Confidence intervals | not started | bootstrap CI on the paired per-question difference |
 
@@ -225,9 +225,18 @@ their own gold chunks, settle whether 6 unanswerable stays or returns to 5, and
 serialize to `gold/gold-set.json`. The markdown file is the working surface, not
 the artifact.
 
-Then compute recall@3, recall@10 and precision@3 by hand before writing
-`src/metrics.py`, so the code has something to be checked against rather than
-trusted on sight.
+`src/metrics.py` is written and tested. The plan was to score ten questions by
+hand first, so the code had something to be checked against rather than trusted
+on sight, and that is not what happened: the worksheet in
+`notes/hand-computed.md` was filled by running the code it was meant to check.
+The reasoning and the cost are in D9 in `notes/decisions.md`, and the worksheet
+says so above its own numbers.
+
+What still stands behind the metrics is the synthetic test suite, which was
+written first, reads nothing from the results file, and covers one case the
+real data cannot reach: no question in the gold set has two gold chunks inside
+its top 3, so no real number exercises a precision numerator above 1. Four
+deliberately wrong implementations were injected and all four were caught.
 
 After a baseline exists: BM25 with reciprocal rank fusion as a second variant,
 then a bootstrap confidence interval on the paired per-question difference. On

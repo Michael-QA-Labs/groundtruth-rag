@@ -4,12 +4,17 @@ Every case here is synthetic. Short invented ranked lists, gold sets of one to
 three chunks, numbers small enough to check in your head. Nothing in this file
 reads `results/retrieval-baseline.json`.
 
-That is deliberate and it is the point of the file's ordering. Day 6 computes
-ten of these questions by hand; Day 7 (this) writes the code. If the code were
-developed against the real results, the two would stop being independent and
-the Day 7 comparison could only ever agree with itself. The real-data
-assertions belong in a second pass, added after the hand numbers are written
-down and frozen.
+That is deliberate, and after 2026-08-06 it is the only independence left in
+Day 7. The plan was for Day 6 to compute ten questions by hand and for this
+file to check the code against them; instead notes/hand-computed.md was filled
+in by running `metrics.py`, so those ten numbers can no longer test the code
+that produced them. This file was written before that happened and reads
+nothing from the results file, which is what still makes it a test rather than
+a record.
+
+Keep it that way. The real-data assertions live in
+tests/test_metrics_baseline.py and are regression pins, not checks on the
+arithmetic. Do not move them here.
 
 The synthetic cases also reach one place the hand numbers cannot. No question
 in the gold set has two gold chunks inside its top 3, so no hand-computed
