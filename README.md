@@ -123,25 +123,44 @@ embedding a whole component's source. The chunker did what it was told and the
 output is still junk. Two gold questions now draw on that page's prose
 deliberately, so retrieval has to find one real chunk among 29 decoys.
 
-### Six pages the corpus cites are not in the corpus
+### Half this corpus's internal links point outside it
 
-`model-config`, `permission-modes`, `costs`, `commands`, `statusline` and
-`sandboxing` are linked repeatedly from inside the 30 pages, and none of them was
-fetched. Four questions survive only because another page happens to restate the
-material. One did not survive and had to be rewritten.
+**727 of the 1,440 internal documentation links in the corpus lead to a page
+that was never fetched**, across 108 distinct absent slugs. That is what a
+30-page slice of a heavily cross-referenced docs site looks like, and it is a
+consequence of the Day 1 scope decision rather than a bug.
+
+Six of those absent pages were named here for a while: `model-config`,
+`permission-modes`, `costs`, `commands`, `statusline` and `sandboxing`. They are
+the six that surfaced during labeling, not the six most cited, which is a
+distinction the earlier wording blurred. `costs` ranks 45th by citations and
+`statusline` 34th, while the most-cited absent page, `env-vars` at 50 chunks
+across 13 of the 30 pages, went unmentioned.
+
+**The measured cost is 3 questions of 24**, where the sentence carrying the gold
+answer defers to an absent page by name and anchor: Q06 and Q08 to
+`permission-modes`, Q23 to `model-config`. Every other absent page costs nothing
+measurable. `results/comparison.md` reports every metric a second time without
+those three, which is how BM25's apparent recall@10 advantage over the hybrid
+turned out to be mostly them.
 
 Pages were selected by reading titles. The gap only became visible when questions
 were labeled against the text. Choosing a corpus and validating one are different
 activities, and only the second finds this.
 
-Day 9 put numbers on it. 108 distinct cited slugs are absent from the corpus,
-led by `env-vars` at 50 chunks across 13 pages, which is what a 30-page slice of
-a larger doc set looks like and is not by itself a defect. The defect is
-narrower and was audited question by question: **3 of the 24 answerable
-questions** have gold that is an incidental mention because the page documenting
-the answer was never fetched, identified by the gold chunk's own answer sentence
-linking out to the absent page by name and anchor. Those three are why
-`results/comparison.md` reports every metric a second time with them removed.
+Chasing this further turned up something the missing pages get blamed for and
+did not cause. Dangling links concentrate in short blocks that are nothing but a
+bulleted list of links, and those blocks are five times more likely to reach a
+top 10 than their share of the index predicts. In **7 of 24 questions one
+outranks the first gold chunk**, six of them the same four-bullet "next steps"
+block that names every major concept in the product and answers nothing.
+
+Filtering them out buys +0.003 MRR and nothing else, because the gold chunk is
+not at rank 11 waiting to be promoted, it is at 89 or 916. The first filter
+tried was worse than useless: it deleted a real gold chunk, since link density
+finds links rather than navigation. Full workings in
+[`notes/corpus-gaps.md`](./notes/corpus-gaps.md), including why no filter was
+shipped.
 
 ## Design decisions
 
