@@ -581,6 +581,53 @@ invite exactly that comparison. Ranks are the artifact.
 
 ---
 
+## D11: the variants are indistinguishable, and that is the reported result
+
+Decided 2026-08-06, on the Day 11 numbers.
+
+**The finding.** 0 of 12 paired comparisons exclude zero. Three variants, four
+metrics, 2,000 resamples over 24 answerable questions. The largest observed
+difference is hybrid over dense on recall@3, +0.106, with a 95% interval of
+[-0.042, +0.281]. The closest to settled is precision@3 hybrid over dense,
++0.056, [+0.000, +0.125], whose lower bound is exactly 0.000 under all eight
+seeds tried.
+
+**What gets reported, therefore.** That the variants cannot be distinguished at
+this sample size. Not "the hybrid improves recall@3 by 0.106", not "the hybrid
+is best on three of four metrics", both of which are true statements about
+these 24 questions and neither of which is a claim about the retrievers. The
+point estimates stay in the README with their intervals attached, never alone.
+
+**Why this is not a failed day.** The entire argument of this project is that
+an unmeasured claim is worth less than a measured non-result. Day 9 produced
+three tables that would support a confident story about fusion, and the only
+reason that story is not in the README is that Day 11 was run. A portfolio
+project that reports "+0.071, so the hybrid wins" is indistinguishable from one
+that got lucky, and the reader has no way to tell which they are holding.
+
+**The number that makes it concrete: about 106 questions.** By normal
+approximation on the observed effect and spread, that is what it would take for
+the recall@10 comparison to exclude zero. This set has 24. The gap is not a
+tuning problem, it is roughly the whole project again, and saying so is more
+useful than any interval in the file.
+
+**Percentile method kept, BCa refused.** BCa corrects the undercoverage that
+percentile intervals show with small skewed samples, and n=24 with many
+identical zeros is exactly that regime. It is not adopted, for two reasons.
+The correction would widen the intervals or shift them, and every interval here
+already fails to exclude zero, so it cannot change a conclusion. And it cannot
+be written from the definition without a reference, which breaks the rule the
+rest of this repo is built on. Recorded so the omission is a decision rather
+than an oversight.
+
+**All three variants stay.** Dropping BM25 now that fusion did not clearly win
+would leave a comparison of two things with no context. The keyword-only run is
+what showed that BM25's apparent depth advantage is mostly the three
+corpus-gap questions, D10, and that finding survives even though its recall@10
+interval overlaps everything.
+
+---
+
 ## Housekeeping
 
 `~/corpus/` holds the first (28 Jul) fetch — slug-named files under `pages/`,
