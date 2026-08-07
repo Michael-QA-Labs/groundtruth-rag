@@ -4,12 +4,25 @@ A retrieval system over technical documentation, plus the evaluation harness
 that measures whether it works. The retriever is simple on purpose. The
 measurement is the part I care about.
 
-**Status: baseline measured, and it is weak.** Mean recall@10 is **0.362** over
-the 24 answerable questions, and **12 of those 24 return no gold chunk in the
-top 10 at all**. The corpus is frozen, the index is built, 195 tests pass. The
-retriever is a single dense vector search chosen to be beatable, so those
-numbers are the starting line rather than a result. Five of the failures are
-diagnosed chunk by chunk in [`notes/failures.md`](./notes/failures.md).
+**Status: three variants measured, and none of them is distinguishable from the
+others.** Mean recall@10 runs 0.362 for dense, 0.453 for BM25 and 0.433 for the
+hybrid, and the 95% confidence interval on every one of the 12 paired
+comparisons contains zero. The headline difference, hybrid over dense on
+recall@10, is **+0.071 with an interval of [-0.075, +0.217]** on 24 questions.
+
+That non-result is the most useful thing here. The point estimates alone would
+support a confident story about fusion working, and the only reason that story
+is not in this README is that the intervals got computed. Roughly 106 questions
+would be needed to settle the comparison; this gold set has 24.
+
+The baseline is weak on purpose: **12 of 24 answerable questions return no gold
+chunk in the top 10**, and five of those failures are diagnosed chunk by chunk
+in [`notes/failures.md`](./notes/failures.md). Corpus frozen, index built, 195
+tests pass.
+
+Numbers: [`results/baseline.md`](./results/baseline.md),
+[`results/comparison.md`](./results/comparison.md),
+[`results/confidence.md`](./results/confidence.md).
 
 ## What exists today
 
@@ -19,7 +32,7 @@ diagnosed chunk by chunk in [`notes/failures.md`](./notes/failures.md).
 | Chunking | done | 1,637 chunks, packed to a 254-token budget |
 | Embedding | done | `all-MiniLM-L6-v2`, 384-dim, L2-normalised |
 | Search | done | cosine top-k over the full index |
-| Gold set | labeled | 30 questions, 24 answerable, 6 unanswerable. Every label audited, 6 of 24 revised |
+| Gold set | done | 30 questions, 24 answerable, 6 unanswerable. Every label audited, 6 of 24 revised |
 | Metrics | done | recall@k, precision@k, MRR, first relevant rank. 37 tests, 4 injected wrong implementations caught |
 | Baseline | done | mean recall@10 0.362 over 24 answerable questions; 12 of 24 return no gold chunk in the top 10 |
 | Hybrid | done | BM25 alone and RRF fusion on the same 30 questions. Hybrid wins recall@3, precision@3 and MRR; BM25 alone wins recall@10 |
@@ -120,6 +133,15 @@ material. One did not survive and had to be rewritten.
 Pages were selected by reading titles. The gap only became visible when questions
 were labeled against the text. Choosing a corpus and validating one are different
 activities, and only the second finds this.
+
+Day 9 put numbers on it. 108 distinct cited slugs are absent from the corpus,
+led by `env-vars` at 50 chunks across 13 pages, which is what a 30-page slice of
+a larger doc set looks like and is not by itself a defect. The defect is
+narrower and was audited question by question: **3 of the 24 answerable
+questions** have gold that is an incidental mention because the page documenting
+the answer was never fetched, identified by the gold chunk's own answer sentence
+linking out to the absent page by name and anchor. Those three are why
+`results/comparison.md` reports every metric a second time with them removed.
 
 ## Design decisions
 
@@ -225,26 +247,28 @@ for every page are listed in [`corpus/INDEX.md`](./corpus/INDEX.md).
 
 ## What's next
 
-Finish the gold set: run a rare-vocabulary check across all 30 questions against
-their own gold chunks, settle whether 6 unanswerable stays or returns to 5, and
-serialize to `gold/gold-set.json`. The markdown file is the working surface, not
-the artifact.
+**Day 12, the write-up, is the only Phase 1 work left.** This README still
+describes the project rather than presenting the result: the numbers at the top
+belong in a narrative that says what was measured, how the gold set was built,
+and what the non-result means, in that order.
 
-`src/metrics.py` is written and tested. The plan was to score ten questions by
-hand first, so the code had something to be checked against rather than trusted
-on sight, and that is not what happened: the worksheet in
-`notes/hand-computed.md` was filled by running the code it was meant to check.
-The reasoning and the cost are in D9 in `notes/decisions.md`, and the worksheet
-says so above its own numbers.
+The D9 caveat travels with the metrics. The Day 6 worksheet in
+`notes/hand-computed.md` was meant to score ten questions by hand so the code
+had something independent to be checked against, and it was filled by running
+that code instead. What still stands behind the arithmetic is the synthetic
+suite, written first, reading nothing from the results file, covering one case
+the real data cannot reach: no question has two gold chunks inside its top 3,
+so no real number exercises a precision numerator above 1. Four deliberately
+wrong implementations were injected and all four were caught.
 
-What still stands behind the metrics is the synthetic test suite, which was
-written first, reads nothing from the results file, and covers one case the
-real data cannot reach: no question in the gold set has two gold chunks inside
-its top 3, so no real number exercises a precision numerator above 1. Four
-deliberately wrong implementations were injected and all four were caught.
+After the write-up, in priority order: a cross-encoder reranker over the top
+50, which the Day 9 numbers now argue for concretely, since fusion moved four
+gold chunks from ranks 89, 160, 365 and 916 to 19, 23, 26 and 39, putting them
+inside a rerankable candidate list for the first time; a Pareto'd failure
+taxonomy over all 24 questions rather than the five in `notes/failures.md`; and
+an LLM judge validated against hand labels with Cohen's kappa.
 
-After a baseline exists: BM25 with reciprocal rank fusion as a second variant,
-then a bootstrap confidence interval on the paired per-question difference. On
-30 questions a swing of +0.09 may well be noise, and reporting it as an
-improvement without a CI would be exactly the kind of unmeasured claim this
-project exists to avoid.
+**What this project will not do is grow the gold set to chase significance.**
+Going from 24 to roughly 106 hand-labeled questions is the majority of the
+project again, and the honest version of that trade belongs in the write-up
+rather than in a quiet re-run.
