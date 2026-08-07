@@ -1,0 +1,2718 @@
+{
+  "corpus_sha256": "a887366bab9778b59129493073c38a116d55ff8e6657b191be1f9d5678473737",
+  "vectors_sha256": "f0587a0e188318e00dcc811a453f45d9a5985ced426ab6c36483bdf5ef596f5f",
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "top": 20,
+  "variant": "hybrid-rrf60",
+  "note": "Dense and BM25 fused with reciprocal rank fusion, k=60, over full-depth lists. No score is stored: RRF scores are not comparable across questions and nothing downstream reads them.",
+  "questions": [
+    {
+      "id": "Q01",
+      "question": "How do i set-up claude code in my CLI",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-02:c005",
+        "doc-01:c001",
+        "doc-02:c001"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-10:c005"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-19:c000"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-01:c001"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-05:c016"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-05:c037"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-25:c103"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-02:c012"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-06:c006"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-23:c000"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-02:c001"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-19:c012"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-03:c016"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-15:c010"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-14:c026"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-05:c000"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-18:c024"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-03:c008"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-03:c000"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-13:c001"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-04:c013"
+        }
+      ]
+    },
+    {
+      "id": "Q02",
+      "question": "How do i import a plugin",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-05:c020",
+        "doc-12:c056",
+        "doc-16:c003"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-18:c005"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-18:c027"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-18:c008"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-18:c003"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-18:c009"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-18:c024"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-18:c025"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-18:c002"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-18:c015"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-18:c007"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-18:c020"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-18:c016"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-18:c026"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-18:c018"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-18:c019"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-15:c011"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-14:c035"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-10:c052"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-06:c008"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-08:c033"
+        }
+      ]
+    },
+    {
+      "id": "Q03",
+      "question": "Can claude code create a mcp",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-16:c003"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-18:c000"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-04:c013"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-16:c031"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-16:c049"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-16:c075"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-08:c032"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-16:c084"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-16:c001"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-16:c000"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-25:c009"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-08:c007"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-13:c001"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-26:c008"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-26:c001"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-26:c000"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-16:c053"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-16:c047"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-16:c003"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-12:c000"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-20:c029"
+        }
+      ]
+    },
+    {
+      "id": "Q04",
+      "question": "How can i extract a json using claude code",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-08:c000",
+        "doc-01:c011",
+        "doc-04:c016",
+        "doc-05:c028",
+        "doc-19:c008"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-19:c009"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-19:c010"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-19:c008"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-18:c026"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-08:c027"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-05:c028"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-25:c051"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-19:c007"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-25:c104"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-05:c001"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-04:c013"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-02:c000"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-14:c063"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-14:c056"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-13:c053"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-14:c108"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-15:c099"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-13:c010"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-03:c000"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-13:c031"
+        }
+      ]
+    },
+    {
+      "id": "Q05",
+      "question": "how do we use agents in claude code",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-15:c059"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-15:c010"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-24:c007"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-24:c000"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-13:c001"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-03:c008"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-03:c000"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-05:c037"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-03:c007"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-15:c011"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-06:c011"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-18:c000"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-02:c012"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-15:c007"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-05:c000"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-24:c001"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-01:c016"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-05:c001"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-24:c005"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-18:c015"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-07:c132"
+        }
+      ]
+    },
+    {
+      "id": "Q06",
+      "question": "when to use auto mode in claude code",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-05:c015",
+        "doc-05:c032"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-08:c004"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-08:c005"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-08:c021"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-10:c005"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-08:c031"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-07:c093"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-13:c022"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-14:c002"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-23:c001"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-10:c069"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-06:c001"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-20:c005"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-02:c008"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-07:c086"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-07:c025"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-10:c055"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-07:c026"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-08:c016"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-05:c032"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-17:c028"
+        }
+      ]
+    },
+    {
+      "id": "Q07",
+      "question": "if i block a tool completely does claude still know it exists",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-10:c004"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-17:c036"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-25:c036"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-14:c113"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-25:c050"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-13:c022"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-14:c002"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-10:c047"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-26:c003"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-26:c019"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-13:c032"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-14:c140"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-12:c052"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-14:c132"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-12:c040"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-10:c053"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-14:c215"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-25:c159"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-25:c155"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-16:c072"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-08:c011"
+        }
+      ]
+    },
+    {
+      "id": "Q08",
+      "question": "when to use plan mode in claude code",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-04:c015",
+        "doc-03:c018"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-15:c004"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-08:c031"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-10:c005"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-05:c007"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-10:c055"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-13:c019"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-05:c036"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-02:c008"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-07:c080"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-04:c015"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-15:c006"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-05:c006"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-23:c001"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-13:c022"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-14:c002"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-04:c016"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-14:c121"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-19:c000"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-20:c005"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-06:c011"
+        }
+      ]
+    },
+    {
+      "id": "Q09",
+      "question": "after a long chat gets summarised do my project rules stick around",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-09:c061"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-09:c061"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-13:c049"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-06:c017"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-06:c021"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-06:c003"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-06:c016"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-14:c209"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-15:c048"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-05:c012"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-25:c002"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-06:c002"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-05:c024"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-16:c028"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-17:c024"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-09:c004"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-13:c000"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-05:c035"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-03:c012"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-16:c023"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-21:c016"
+        }
+      ]
+    },
+    {
+      "id": "Q10",
+      "question": "what are the best practices when prompting in claude code",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-02:c011"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-02:c012"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-05:c000"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-05:c001"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-04:c000"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-23:c000"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-04:c017"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-05:c021"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-03:c016"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-05:c012"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-09:c065"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-06:c006"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-04:c013"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-03:c003"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-03:c002"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-15:c014"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-01:c017"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-03:c001"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-06:c001"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-15:c015"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-12:c002"
+        }
+      ]
+    },
+    {
+      "id": "Q11",
+      "question": "can task monitor tell if a background task will finish or loop forever?",
+      "answerable": false,
+      "gold_chunks": [],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-25:c100"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-17:c028"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-16:c028"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-25:c098"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-25:c136"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-16:c029"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-25:c149"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-25:c097"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-15:c064"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-25:c134"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-14:c170"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-14:c169"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-14:c167"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-14:c164"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-15:c065"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-19:c004"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-14:c119"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-25:c135"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-21:c028"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-17:c007"
+        }
+      ]
+    },
+    {
+      "id": "Q12",
+      "question": "what is already eating my context before i type anything",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-09:c060"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-09:c029"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-09:c059"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-09:c060"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-09:c063"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-09:c000"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-03:c011"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-14:c195"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-03:c014"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-14:c158"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-05:c002"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-12:c074"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-12:c038"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-12:c045"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-05:c024"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-05:c036"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-03:c013"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-09:c044"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-25:c077"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-09:c042"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-15:c079"
+        }
+      ]
+    },
+    {
+      "id": "Q13",
+      "question": "at what token volume does max become cheaper than the api?",
+      "answerable": false,
+      "gold_chunks": [],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-29:c000"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-20:c012"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-16:c079"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-25:c049"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-29:c001"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-08:c028"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-05:c002"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-20:c011"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-16:c077"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-16:c070"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-20:c028"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-23:c006"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-25:c093"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-20:c023"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-08:c010"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-25:c046"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-29:c019"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-29:c002"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-20:c018"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-02:c005"
+        }
+      ]
+    },
+    {
+      "id": "Q14",
+      "question": "starting a project in claude code",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-03:c016",
+        "doc-05:c010",
+        "doc-06:c006"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-06:c006"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-04:c002"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-02:c012"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-05:c037"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-15:c093"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-03:c005"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-02:c006"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-08:c043"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-08:c008"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-02:c000"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-03:c000"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-25:c060"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-07:c004"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-01:c001"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-15:c068"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-13:c000"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-12:c013"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-07:c006"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-01:c000"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-02:c007"
+        }
+      ]
+    },
+    {
+      "id": "Q15",
+      "question": "what are hooks in claude code",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-14:c000",
+        "doc-14:c009"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-06:c001"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-14:c000"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-14:c080"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-14:c213"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-14:c169"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-13:c000"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-03:c002"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-13:c004"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-06:c033"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-18:c027"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-13:c027"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-14:c045"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-04:c013"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-28:c049"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-28:c056"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-14:c047"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-03:c003"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-03:c007"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-13:c001"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-05:c037"
+        }
+      ]
+    },
+    {
+      "id": "Q16",
+      "question": "does rewind undo edits i made by hand outside claude",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-11:c007"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-11:c005"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-11:c007"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-21:c026"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-11:c006"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-05:c023"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-11:c000"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-11:c002"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-11:c001"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-11:c008"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-07:c051"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-12:c049"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-22:c007"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-05:c026"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-05:c024"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-03:c009"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-03:c014"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-03:c015"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-05:c027"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-17:c029"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-11:c009"
+        }
+      ]
+    },
+    {
+      "id": "Q17",
+      "question": "how many tokens do i get in a 5-hour window on max?",
+      "answerable": false,
+      "gold_chunks": [],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-25:c046"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-16:c024"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-09:c000"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-16:c077"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-05:c002"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-29:c017"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-25:c049"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-05:c001"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-25:c096"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-09:c063"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-29:c019"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-09:c064"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-12:c039"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-20:c012"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-09:c036"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-25:c093"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-25:c077"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-09:c004"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-16:c079"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-16:c027"
+        }
+      ]
+    },
+    {
+      "id": "Q18",
+      "question": "What is the function between a client MCP and server MCP",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-16:c000",
+        "doc-16:c075",
+        "doc-16:c076"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-16:c094"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-16:c056"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-16:c053"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-25:c022"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-16:c031"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-16:c024"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-16:c085"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-16:c002"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-25:c020"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-08:c007"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-16:c066"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-16:c055"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-16:c011"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-15:c025"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-16:c019"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-15:c040"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-25:c163"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-15:c039"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-28:c018"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-15:c036"
+        }
+      ]
+    },
+    {
+      "id": "Q19",
+      "question": "how do we use RAG in claude code",
+      "answerable": false,
+      "gold_chunks": [],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-03:c008"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-04:c013"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-05:c037"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-23:c000"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-05:c000"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-03:c000"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-03:c007"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-02:c012"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-05:c001"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-10:c005"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-11:c000"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-12:c021"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-20:c001"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-02:c000"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-06:c000"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-01:c000"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-06:c006"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-19:c000"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-02:c007"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-06:c001"
+        }
+      ]
+    },
+    {
+      "id": "Q20",
+      "question": "is claude code dropping the ide extensions?",
+      "answerable": false,
+      "gold_chunks": [],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-03:c008"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-07:c086"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-01:c000"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-01:c001"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-10:c005"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-05:c037"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-13:c001"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-19:c000"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-02:c000"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-05:c020"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-04:c013"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-01:c007"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-03:c004"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-02:c001"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-21:c030"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-17:c037"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-24:c005"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-07:c087"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-12:c002"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-16:c072"
+        }
+      ]
+    },
+    {
+      "id": "Q21",
+      "question": "how do we create a skill for the agent",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-12:c006"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-12:c001"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-18:c011"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-12:c050"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-12:c058"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-12:c000"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-12:c076"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-12:c026"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-12:c018"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-12:c021"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-12:c020"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-24:c007"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-12:c023"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-12:c047"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-12:c051"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-25:c062"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-12:c025"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-18:c028"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-15:c007"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-12:c039"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-18:c005"
+        }
+      ]
+    },
+    {
+      "id": "Q22",
+      "question": "how do we check for token usage",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-03:c011",
+        "doc-03:c013"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-29:c001"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-29:c000"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-05:c002"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-23:c006"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-29:c010"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-29:c002"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-29:c008"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-29:c016"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-09:c065"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-20:c012"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-09:c005"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-25:c086"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-08:c010"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-29:c005"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-25:c092"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-25:c093"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-16:c062"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-21:c020"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-04:c016"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-29:c011"
+        }
+      ]
+    },
+    {
+      "id": "Q23",
+      "question": "how do we switch between models in the cli",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-03:c002",
+        "doc-07:c015"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-07:c076"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-07:c049"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-13:c004"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-03:c002"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-14:c054"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-08:c043"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-11:c009"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-05:c016"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-07:c125"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-25:c041"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-25:c130"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-25:c040"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-23:c003"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-10:c005"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-15:c010"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-25:c176"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-07:c028"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-01:c012"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-14:c010"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-07:c000"
+        }
+      ]
+    },
+    {
+      "id": "Q24",
+      "question": "How do i reinstate or resume a previous claude code session",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-03:c010"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-03:c009"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-03:c010"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-11:c000"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-02:c006"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-15:c086"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-05:c026"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-02:c010"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-11:c003"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-05:c027"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-22:c006"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-08:c009"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-15:c083"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-04:c001"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-05:c023"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-17:c035"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-11:c001"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-22:c002"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-25:c003"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-14:c073"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-04:c013"
+        }
+      ]
+    },
+    {
+      "id": "Q25",
+      "question": "how do i stop repeating the same setup instructions to claude every time",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-06:c001",
+        "doc-06:c003"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-23:c000"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-06:c006"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-23:c003"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-06:c003"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-06:c002"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-06:c000"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-12:c002"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-14:c071"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-12:c038"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-06:c001"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-03:c016"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-05:c005"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-05:c001"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-05:c036"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-09:c063"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-06:c011"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-02:c012"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-01:c017"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-05:c012"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-05:c013"
+        }
+      ]
+    },
+    {
+      "id": "Q26",
+      "question": "how do we scan for the health of claude's environment",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-03:c016",
+        "doc-08:c006"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-05:c000"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-08:c006"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-15:c069"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-17:c026"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-15:c068"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-03:c007"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-05:c037"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-03:c000"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-13:c015"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-02:c012"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-07:c158"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-07:c000"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-14:c072"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-05:c001"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-05:c010"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-04:c013"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-05:c006"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-03:c016"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-03:c008"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-25:c000"
+        }
+      ]
+    },
+    {
+      "id": "Q27",
+      "question": "who is liable if claude writes a security bug that leaks data?",
+      "answerable": false,
+      "gold_chunks": [],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-06:c001"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-14:c072"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-03:c006"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-13:c027"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-15:c085"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-21:c000"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-20:c030"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-05:c019"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-06:c030"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-05:c015"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-07:c001"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-02:c008"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-06:c032"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-28:c000"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-25:c122"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-07:c006"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-28:c028"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-17:c032"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-15:c066"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-20:c004"
+        }
+      ]
+    },
+    {
+      "id": "Q28",
+      "question": "how far back can i rewind and does it survive a restart",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-11:c001"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-11:c001"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-05:c023"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-11:c002"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-11:c005"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-05:c024"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-07:c051"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-05:c026"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-11:c009"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-11:c007"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-05:c027"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-30:c003"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-08:c009"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-11:c000"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-11:c008"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-21:c026"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-15:c089"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-30:c002"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-30:c013"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-22:c006"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-06:c030"
+        }
+      ]
+    },
+    {
+      "id": "Q29",
+      "question": "what can i do before a long session summarises itself",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-09:c063"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-05:c023"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-09:c061"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-03:c014"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-05:c024"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-09:c063"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-09:c059"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-11:c004"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-03:c011"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-05:c002"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-02:c010"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-17:c024"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-16:c028"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-30:c001"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-09:c030"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-06:c025"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-30:c000"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-14:c083"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-11:c003"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-05:c026"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-03:c009"
+        }
+      ]
+    },
+    {
+      "id": "Q30",
+      "question": "what can i use to make sure that code being written is safe and bug free?",
+      "answerable": true,
+      "gold_chunks": [
+        "doc-12:c002",
+        "doc-05:c032"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "doc-05:c015"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc-02:c009"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc-10:c000"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc-21:c008"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc-03:c016"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc-01:c008"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc-21:c009"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc-15:c069"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc-28:c000"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc-02:c011"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc-27:c001"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "doc-15:c094"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "doc-08:c037"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "doc-02:c007"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "doc-15:c098"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "doc-13:c004"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "doc-14:c006"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "doc-05:c012"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "doc-15:c008"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "doc-02:c008"
+        }
+      ]
+    }
+  ]
+}

@@ -530,6 +530,57 @@ genuine check at the cost of an hour.
 
 ---
 
+## D10: nothing in the second variant is tuned, and BM25 is written rather than installed
+
+Decided 2026-08-06, building Day 9.
+
+**Nothing is tuned.** BM25 runs at k1=1.2 and b=0.75, RRF at k=60, all three
+standard defaults taken as given. The temptation is obvious: 24 questions, a
+scorer with two knobs, and a metric to raise. The reason not to is that Day 11
+computes a confidence interval on the paired difference between this variant
+and the baseline, and an interval computed on the set the parameters were
+fitted to describes a retriever that has already seen its own evaluation. It
+would be the same error as picking gold chunks from `search.py` output, one
+layer up, and it would be invisible in the result.
+
+If tuning happens later it needs its own split, and this gold set is too small
+to give one up.
+
+**BM25 is written out, not installed.** `rank_bm25` is permitted by PLAN.md and
+is not in this venv, with no network to fetch it. Beyond that, requirements.txt
+exists on the argument that an unpinned dependency can move every metric with
+no hash to catch it; adding one to compute the comparison variant is where that
+argument bites hardest. The formula is 40 lines and it is the deliverable.
+
+**The tokeniser is shared with the leak check.** `leakage.tokenise` already
+splits `settings.json` and `claude-code` the way a typed question does, and it
+has 13 tests. Two tokenisers would mean the keyword retriever could not match
+the vocabulary D6 measured. The inherited cost is that tokens under 3
+characters are dropped, so `-p`, `ls` and `cd` are unmatchable; no question in
+the set turns on any of them. It also shortens every document, which changes
+avgdl and every length-normalised score, and that cost one wrong hand
+computation in `tests/test_keyword.py` before it was found.
+
+**BM25 alone is saved, though Day 9 only asks for the hybrid.** It costs one
+file write, since the ranking has to exist to be fused. It turned out to be
+the most informative artifact of the day: BM25 alone beats the hybrid on mean
+recall@10, 0.453 against 0.433, and without the keyword-only run the hybrid's
+gain over dense would have read as evidence that fusion works. With the three
+corpus-gap questions removed the two are 0.446 and 0.448, so most of that
+apparent edge is BM25 matching literal words in passing mentions on questions
+whose canonical page was never fetched. See `results/comparison.md`.
+
+**RRF fuses full-depth lists, all 1,637 ranks from each side.** Truncating
+first makes "absent from this list" ambiguous between rank 21 and rank 1,600,
+and those are different evidence. It costs nothing: the dense scores are one
+matrix multiply and BM25 scores every chunk anyway.
+
+**No RRF score is stored in `results/hybrid.json`.** They are sums of
+`1/(60+rank)` and are not comparable across questions, so storing them would
+invite exactly that comparison. Ranks are the artifact.
+
+---
+
 ## Housekeeping
 
 `~/corpus/` holds the first (28 Jul) fetch — slug-named files under `pages/`,
