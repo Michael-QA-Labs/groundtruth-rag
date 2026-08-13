@@ -71,14 +71,33 @@ Allocation, deterministic, no RNG:
 Every question's full gold set is in its pool, so **every pool is sufficient by
 construction** and the minimal-subset question is always answerable.
 
-### 3. Two judges, neither of them tuned
+### 3. Five configurations, so the follow-up question has an answer
 
-Primary is `claude-opus-5`. Second variant is `claude-haiku-4-5`, run after the
-first is complete, on the identical pools with the identical prompt and schema.
+The question this project has to answer in an interview is not "what is κ". It
+is **"can an LLM judge apply my D5 rule as consistently as I do, and what does
+that cost?"** One configuration cannot answer the second half, and two
+configurations that differ in both model and reasoning budget cannot answer
+either half cleanly.
 
-This follows D10's discipline: nothing in the second variant is tuned. The
-question is "does a judge 5x cheaper agree with me as well as the expensive
-one", and tuning Haiku to close a gap would destroy the only interesting answer.
+So the judge runs as five arms over the identical pools, prompt and schema:
+
+| Arm | Model | Reasoning config | Answers |
+|---|---|---|---|
+| A1 | `claude-opus-5` | Adaptive, effort default | **Headline.** Best available judge. |
+| A2 | `claude-opus-5` | Adaptive, `effort: "low"` | Does the expensive setting buy agreement? |
+| A3 | `claude-haiku-4-5` | Thinking off | Floor. |
+| A4 | `claude-haiku-4-5` | `budget_tokens: 1024` | Budget curve. |
+| A5 | `claude-haiku-4-5` | `budget_tokens: 4096` | Budget curve. |
+
+A3 to A5 hold the model fixed and vary only reasoning, so a Haiku deficit can be
+attributed to budget or not. A1 against A5 compares models at broadly comparable
+reasoning spend. This is a sweep, not a search: **the pre-registered commitment
+is that all five arms are reported regardless of which wins.** That is what D5's
+decide-before-you-look discipline actually protects against, and it costs
+nothing to honour here, because no arm is being selected on its result.
+
+Only the config list grows. The sampler, prompt, schema, parser and κ code are
+identical across arms.
 
 The two models do not accept the same request shape, which matters:
 
@@ -90,14 +109,10 @@ The two models do not accept the same request shape, which matters:
 | Prompt cache minimum | 512 tokens | 4,096 tokens, so the ~700-token rubric **will not cache** |
 | Price per Mtok | $5 in / $25 out | $1 in / $5 out |
 
-`budget_tokens` for Haiku is fixed at **2048, chosen before any results are
-seen, and not adjusted afterwards**, the same pre-registration discipline D5
-used when the labeling rule was fixed before labeling began.
-
-**Admit the confound in the writeup.** Adaptive thinking against a fixed budget
-is not a controlled model ablation. What this comparison measures is two judges
-configured the way you would actually deploy them, not Opus-versus-Haiku holding
-reasoning constant.
+`budget_tokens` must be less than `max_tokens`, so Haiku arms run with
+`max_tokens: 8192`. Opus arms run non-streaming at `max_tokens: 16000`. Sending
+`effort` to Haiku is a 400, and sending `budget_tokens` to Opus 5 is a 400, so
+the request builder branches on model rather than sharing one config path.
 
 ## Labeling protocol
 
@@ -127,15 +142,14 @@ not a clean test-retest. Say so where the number appears.
 | κ | Raters | Role |
 |---|---|---|
 | κ_ceiling | Day 3-5 gold vs fresh hand labels | **Primary context.** Human self-consistency. Not a mathematical bound on the others, but a judge scoring near or above it is evidence the rule is ambiguous, not that the judge is good. |
-| κ_opus | Fresh hand labels vs Opus majority vote | **Headline.** |
-| κ_haiku | Fresh hand labels vs Haiku majority vote | Second variant. |
-| κ_models | Opus vs Haiku | Do the judges agree with each other more than either agrees with you? |
-| Run-to-run | Run i vs run j within one model | Reproducibility. |
+| κ_A1 … κ_A5 | Fresh hand labels vs each arm's majority vote | **Headline is κ_A1.** The five together are the cost curve. |
+| κ_models | A1 vs A5 | Do the two judges agree with each other more than either agrees with you? A high value here with low κ against you means the rule is the problem, not the model. |
+| Run-to-run | Run i vs run j within one arm | Reproducibility. |
 
-Each model runs the 24 pools **3 times**. Majority vote across runs gives the
-label used for the headline κ; the spread across runs is the reproducibility
-number. This exists because the judge is the first non-deterministic component
-in a repo where the corpus, the vectors, and the dependency set are all pinned.
+Each arm runs the 24 pools **3 times**. Majority vote across runs gives that
+arm's label; the spread across runs is the reproducibility number. This exists
+because the judge is the first non-deterministic component in a repo where the
+corpus, the vectors, and the dependency set are all pinned.
 
 Intervals reuse `src/stats.py`. The cluster bootstrap clusters on **question**,
 for the same reason Q06 and Q30 were clustered on Day 11: pairs from one pool
@@ -147,8 +161,53 @@ point estimate become the finding. The sample size has been the binding
 constraint before, and it is the binding constraint again here; that recurrence
 is worth stating plainly rather than rediscovering.
 
+**Anticipate the likely result and decide now what it means.** Five arms at this
+sample size will probably produce five overlapping intervals, as Day 11 did for
+the retrievers. That is not a second disappointment, because unlike Day 11 it
+carries an action: **if the arms cannot be distinguished, the cheap one wins.**
+"I could not separate a judge costing $5.71 from one costing $0.26, so I would
+ship the $0.26 one and say why" is a decision, and a better answer to "what
+would you do next" than any point estimate. Write that conclusion into
+`results/agreement.md` in the form the numbers actually support.
+
 κ is hand-computed on a small table first and pinned in a test, the way Day 6
 preceded Day 7.
+
+## Reproducibility, and where it stops
+
+This is the first part of the repo that cannot be made reproducible, and the
+right response is to draw the boundary explicitly rather than to apologise in a
+footnote.
+
+**Reproducible to the byte, forever:** the corpus (sha256), the vectors
+(sha256), the pools (seeded draw), the hand labels (sha256, gate-checked), and
+every κ (pinned against hand-computed tables). Anyone can re-derive all of it
+from the repo with no network.
+
+**Not reproducible, and no pin fixes it:** the judge. `requirements.txt` exists
+because a minor version bump in `sentence-transformers` can silently move every
+metric. That protection does not extend here. Pinning `anthropic` pins the
+client, not the model, and the model behind `claude-opus-5` can change
+server-side at any time with no version string to catch it.
+
+**What replaces reproducibility, since it is not available:** provenance.
+
+- Every call records the response `model` and `id`, the UTC date, the SDK
+  version, and the arm's full config, stored alongside the labels.
+- `results/judge-runs.md` logs each run as a dated measurement.
+- Every κ in `results/agreement.md` carries the date it was measured, the way
+  every point estimate carries its interval.
+- A stated re-measure trigger: re-run the arms before quoting the numbers
+  anywhere that matters, rather than assuming they still hold.
+
+**This belongs in the README, not the appendix.** Model drift is the central
+operational problem in testing LLM-backed systems, and a project that names the
+boundary, defends one side of it with hashes, and records provenance on the
+other is demonstrating the practice rather than describing it. It is also the
+strongest available candidate for "one specific failure you found and
+diagnosed": the failure is that your own evaluation harness stops being
+reproducible exactly where the LLM enters, and the diagnosis is that
+reproducibility has to be replaced by dated provenance at that boundary.
 
 ## Implementation
 
@@ -162,9 +221,9 @@ preceded Day 7.
 | `judge/pools.json` | 24 pools, shuffled, no gold markers. |
 | `judge/pools-key.json` | Gold status per pair. |
 | `judge/hand-labels.csv` | Your labels. |
-| `results/judge-opus-5.json` | Raw responses plus parsed labels, 3 runs. |
-| `results/judge-haiku-4-5.json` | Same, second variant. |
-| `results/agreement.md` | The writeup. |
+| `results/judge-A1.json` … `judge-A5.json` | Per arm: raw responses, parsed labels, per-call `usage`, and provenance (response `model` and `id`, UTC date, SDK version, arm config). 3 runs each. |
+| `results/judge-runs.md` | Dated log of every run. |
+| `results/agreement.md` | The writeup, including the cost curve. |
 | `notes/decisions.md` | D12, D13, D14. |
 
 Raw responses are written to disk so `agreement.py` never touches the network.
@@ -194,8 +253,10 @@ as a judge-consistency defect**, because that is itself a result.
   degeneracy argument and the `c006` case.
 - **D13**: sample construction, the 3.8% prevalence that forced it, and the
   admission that a balanced sample does not estimate deployment κ.
-- **D14**: judge configuration, the pre-registered Haiku budget, the unmatched
-  variants, and the reproducibility problem below.
+- **D14**: the five arms, the pre-registered commitment to report all of them,
+  and where reproducibility stops. Records that pre-registration is applied to
+  the reporting rule rather than to a hyperparameter, because fixing a budget
+  blind protects nothing and forfeits the ability to explain the result.
 
 ## Verification
 
@@ -222,25 +283,32 @@ confirm the test fails.
 
 1. Sampler plus tests. Pools built and committed.
 2. Hand-label 24 pools. Commit, record hash.
-3. Opus 5 judge, 3 runs. Raw output committed.
+3. Arm A1, 3 runs. Raw output and provenance committed.
 4. κ, intervals, `results/agreement.md`.
-5. Haiku 4.5, 3 runs, on the identical pools. Comparison appended.
+5. Arms A2 to A5, 3 runs each, identical pools. Cost curve appended.
 
-Steps 1 to 4 are the deliverable. Step 5 is the experiment.
+Steps 1 to 4 are the deliverable and stand alone if step 5 never happens. Step 5
+is what makes the follow-up question answerable, and it is four config entries
+rather than new code.
 
 ### Cost
 
-72 calls per model (24 pools × 3 runs). About 2,100 input tokens per call and an
-estimated ~2,750 output-plus-thinking tokens.
+72 calls per arm (24 pools × 3 runs), 360 calls total. About 2,100 input tokens
+per call; output varies with the reasoning config, which is the whole point.
 
-| | Input | Output | Total |
+| Arm | Input | Output | Total |
 |---|---|---|---|
-| Opus 5 | $0.76 | $4.95 | **~$6** |
-| Haiku 4.5 | $0.15 | $0.99 | **~$1** |
+| A1 Opus 5, default | $0.76 | $4.95 | **$5.71** |
+| A2 Opus 5, effort low | $0.76 | $1.44 | **$2.20** |
+| A3 Haiku 4.5, no thinking | $0.15 | $0.11 | **$0.26** |
+| A4 Haiku 4.5, 1024 | $0.15 | $0.47 | **$0.62** |
+| A5 Haiku 4.5, 4096 | $0.15 | $1.55 | **$1.70** |
 
-About **$7 for everything**, with a realistic band of $4 to $12 depending
-entirely on how much the models think. Cost is 85% thinking tokens; the corpus
-is irrelevant to the bill because the judge never sees it.
+About **$10.50 for all five**, band $7 to $18 depending on how much the models
+actually think. Cost is dominated by thinking tokens; the corpus is irrelevant
+to the bill because the judge never sees it. The 22x spread between A1 and A3 is
+the x-axis of the cost curve, so these figures are a result, not just a budget:
+record actual `usage` per call rather than trusting this table.
 
 Prerequisites: `ANTHROPIC_API_KEY` in the environment (currently unset), and
 `anthropic` pinned in `requirements.txt`.
@@ -248,23 +316,26 @@ Prerequisites: `ANTHROPIC_API_KEY` in the environment (currently unset), and
 ## Done when
 
 - 100 pair labels exist from you, hashed and committed before any judge ran.
-- κ_ceiling, κ_opus, κ_haiku and run-to-run agreement are all reported with
-  intervals.
+- κ_ceiling, all five arm κs, κ_models and run-to-run agreement are reported
+  with intervals and with the date each was measured.
 - `results/agreement.md` states what the numbers do not support, not only what
-  they do.
+  they do, and ends on a decision rather than a point estimate.
 - Someone who has never seen the repo can tell why the judge grades pools rather
   than pairs.
+- You can answer, out loud and without notes: what the judge costs, whether the
+  cheap one is good enough, why you cannot fully separate model from reasoning
+  budget, and what happens to these numbers when the model changes underneath
+  you. That list is the ship gate applied to this day's work.
 
 ## Residual risks
 
-**Pinning the SDK does not pin the model.** `requirements.txt` exists because a
-minor version bump in `sentence-transformers` can change every metric with no
-hash to catch it. That protection does not extend here: the model behind
-`claude-opus-5` can change server-side at any time, and no pin prevents it.
-Record the response `model` field and the run date in the results, and treat
-every judge number as measured on a date rather than reproducible on demand.
-This is a real weakening of the repo's reproducibility story and belongs in the
-README, not in a footnote.
+**Model drift** is handled above, under Reproducibility, and where it stops. It
+is a design constraint with a stated response, not a residual risk.
+
+**Five arms multiply the comparisons, not the evidence.** Reporting five κs
+invites reading the ordering as real when the intervals overlap. The mitigation
+is the pre-registered commitment to report all arms, and stating the
+cannot-distinguish conclusion in the form the numbers support.
 
 **The sample is balanced, deployment is not.** κ at 44% prevalence does not
 estimate κ at the 3.8% you would actually meet. State it next to every κ.
@@ -281,6 +352,8 @@ negative draw could move κ.
 ## Out of scope
 
 - Any generation step, and therefore any judging of answer quality.
-- An effort sweep on the judge. Interesting, and it doubles the runs.
+- Prompt variants for the judge. The rubric is written once and held fixed
+  across all five arms; varying model and prompt together would rebuild the
+  confound this revision removed.
 - Expanding the question set, which is the only real fix for the interval width
   and is a project of its own.
