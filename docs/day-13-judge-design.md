@@ -51,22 +51,35 @@ near-misses in the pool competing. It also means **both raters perform an
 identical task**, which the pair-level design quietly failed to guarantee. κ
 between raters doing different tasks is not a reliability measure.
 
-### 2. Sample: 44 gold pairs plus 56 hard negatives
+### 2. Sample: 44 gold pairs plus 55 hard negatives
 
-All 44 gold pairs, plus 56 non-gold pairs drawn from what the retriever ranked
-in the top 20 for that same question. Prevalence 44%, so κ has stable marginals,
-and every negative is a genuine near-miss the retriever thought was worth
-returning.
+All 44 gold pairs, plus 55 non-gold pairs drawn from what the retriever ranked
+in the top 20 for that same question. 99 pairs, prevalence 44%, so κ has stable
+marginals, and every negative is a genuine near-miss the retriever thought was
+worth returning.
 
-Allocation, deterministic, no RNG:
+Allocation is **one negative per gold chunk, with a floor of two**:
 
-- Every answerable question gets **2 negatives** (48 total).
-- The remaining **8** go one each to the 8 questions with the most gold chunks,
-  ties broken by question id, so pools stay proportionate to their gold.
+    negatives(question) = max(2, gold count)
+
 - Negatives are drawn from that question's top-20 minus its gold chunks, seeded
-  `20260813`. Only the draw uses the RNG; the allocation does not.
+  `20260813`, per question rather than once for the run, so adding or dropping
+  a question does not reshuffle every other question's draw.
 - Pool order is shuffled under the same seed, so position never encodes the
   label.
+
+**Why this rule rather than a flat allocation.** The first version gave every
+question 2 negatives and handed 8 spares to the questions with the most gold.
+Running it on real pools showed what that does: Q04 carries 5 gold chunks and
+came out **62% gold**, a pool where most candidates are required, while the
+1-gold questions sat at 33%. Since the rater is asked for the *minimal
+sufficient* subset, those are different tasks. A mostly-gold pool rewards
+answering "nearly all of them" and a 1-gold pool punishes exactly that, and Q04
+alone would have carried 8% of all pairs and 11% of all gold with a shape no
+other pool shared.
+
+Scaling negatives to gold holds every pool between 33% and 50% gold, with none
+gold-majority, for the cost of one pair (99 rather than 100).
 
 Every question's full gold set is in its pool, so **every pool is sufficient by
 construction** and the minimal-subset question is always answerable.
@@ -121,8 +134,8 @@ Order is load-bearing:
 1. Build pools. `judge/pools.json` carries chunk ids, question, gold answer, and
    nothing that marks gold status. The key lives separately in
    `judge/pools-key.json`.
-2. **Hand-label all 24 pools first**, into `judge/hand-labels.csv`. 24 screens of
-   about 4 candidates, not 100 isolated binary decisions.
+2. **Hand-label all 24 pools first**, into `judge/hand-labels.csv`. 24 screens
+   of 3 to 10 candidates, not 99 isolated binary decisions.
 3. Commit the labels. `results/agreement.md` records their sha256, and
    `src/agreement.py` refuses to run when the recorded hash does not match the
    file, the way `src/run_retrieval.py` refuses when the gold set and index
@@ -155,7 +168,7 @@ Intervals reuse `src/stats.py`. The cluster bootstrap clusters on **question**,
 for the same reason Q06 and Q30 were clustered on Day 11: pairs from one pool
 are not independent.
 
-**Expect wide intervals and plan for them.** 100 labels across 24 clusters is
+**Expect wide intervals and plan for them.** 99 labels across 24 clusters is
 24 effective units. Report κ with its interval, never alone, and do not let a
 point estimate become the finding. The sample size has been the binding
 constraint before, and it is the binding constraint again here; that recurrence
@@ -251,8 +264,9 @@ as a judge-consistency defect**, because that is itself a result.
 
 - **D12**: why the judge runs per question and not per pair, with the
   degeneracy argument and the `c006` case.
-- **D13**: sample construction, the 3.8% prevalence that forced it, and the
-  admission that a balanced sample does not estimate deployment κ.
+- **D13**: sample construction, the 3.8% prevalence that forced it, why
+  negatives scale with gold rather than being allocated flat, and the admission
+  that a balanced sample does not estimate deployment κ.
 - **D14**: the five arms, the pre-registered commitment to report all of them,
   and where reproducibility stops. Records that pre-registration is applied to
   the reporting rule rather than to a hyperparameter, because fixing a budget
@@ -315,7 +329,7 @@ Prerequisites: `ANTHROPIC_API_KEY` in the environment (currently unset), and
 
 ## Done when
 
-- 100 pair labels exist from you, hashed and committed before any judge ran.
+- 99 pair labels exist from you, hashed and committed before any judge ran.
 - κ_ceiling, all five arm κs, κ_models and run-to-run agreement are reported
   with intervals and with the date each was measured.
 - `results/agreement.md` states what the numbers do not support, not only what
@@ -340,7 +354,7 @@ cannot-distinguish conclusion in the form the numbers support.
 **The sample is balanced, deployment is not.** κ at 44% prevalence does not
 estimate κ at the 3.8% you would actually meet. State it next to every κ.
 
-**Gold and negatives differ systematically.** All 56 negatives were retrieved in
+**Gold and negatives differ systematically.** All 55 negatives were retrieved in
 a top-20; 26 of the 44 gold pairs never were. If retrievability correlates with
 anything about the text, it is confounded with label. Counts are too small to
 split 18 against 26 and say anything, so this is documented, not measured.
